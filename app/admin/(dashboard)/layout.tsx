@@ -40,8 +40,7 @@ export default async function AdminLayout({
                         <p className="px-4 text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Principal</p>
                     </div>
                     <AdminNavLink href="/admin" icon={LayoutDashboard} label="Tableau de bord" />
-                    <AdminNavLink href="/admin/activites" icon={Calendar} label="Activités" />
-                    <AdminNavLink href="/admin/publications" icon={FileText} label="Publications" />
+                    <AdminNavLink href="/admin/activites" icon={FileText} label="Articles" />
                     <AdminNavLink href="/admin/galeries" icon={ImageIcon} label="Galeries" />
                     <AdminNavLink href="/admin/messages" icon={MessageSquare} label="Messages" badge={unreadCount} />
 

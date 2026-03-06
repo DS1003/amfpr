@@ -5,7 +5,7 @@ import { MotionWrapper } from "@/components/motion-wrapper"
 import { ArrowRight, Calendar } from "lucide-react"
 import prisma from "@/lib/prisma"
 
-export async function ActivitiesSection() {
+export async function ArticlesSection() {
   const dbActivities = await prisma.activity.findMany({
     where: { published: true },
     orderBy: { date: 'desc' },
@@ -38,11 +38,11 @@ export async function ActivitiesSection() {
       slug: "#"
     },
     {
-      title: "Distribution de dons aux communautés défavorisées",
-      description: "Opération de solidarité pour fournir des fournitures essentielles aux familles les plus vulnérables.",
+      title: "Actions de solidarité pour les communautés",
+      description: "Engagement communautaire et soutien aux familles pour un développement social harmonieux et durable.",
       image: "/images/activities.jpg",
       date: "Décembre 2025",
-      category: "Action sociale",
+      category: "Solidarité",
       slug: "#"
     },
   ]
@@ -55,18 +55,18 @@ export async function ActivitiesSection() {
             <div className="flex items-center gap-3 mb-4 md:mb-5">
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
               <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">
-                Nos actions
+                Actualités & Blog
               </span>
             </div>
             <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl leading-[1.15]">
-              {"Activités récentes"}
+              {"Derniers Articles"}
             </h2>
           </div>
           <Link
-            href="/activites"
+            href="/articles"
             className="inline-flex items-center gap-2 text-xs md:text-sm font-medium text-primary hover:text-accent transition-colors duration-300"
           >
-            Voir toutes les activités
+            Découvrir tous les articles
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -75,8 +75,8 @@ export async function ActivitiesSection() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {activities.map((activity, index) => (
           <MotionWrapper key={activity.title} delay={index * 150}>
-            <article className="group overflow-hidden rounded-2xl bg-card border border-border hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-1 h-full flex flex-col">
-              <Link href={`/activites/${activity.slug}`} className="flex-1 flex flex-col">
+            <article className="group overflow-hidden rounded-2xl bg-white border border-border/60 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 ease-out hover:-translate-y-2 h-full flex flex-col">
+              <Link href={`/articles/${activity.slug}`} className="flex-1 flex flex-col">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={activity.image}

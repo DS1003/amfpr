@@ -41,27 +41,15 @@ export function HeroSection() {
               </MotionWrapper>
 
               <MotionWrapper delay={450}>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center">
-                  <Button
-                    asChild
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-accent hover:text-white rounded-2xl px-8 h-12 lg:h-14 text-[11px] lg:text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 transition-all"
-                  >
-                    <Link href="/a-propos">
-                      Découvrir Plus
-                      <ArrowUpRight className="size-4" />
-                    </Link>
-                  </Button>
-
-                  <Button
-                    asChild
-                    className="bg-accent text-accent-foreground hover:bg-white hover:text-primary rounded-2xl px-8 h-12 lg:h-14 text-[11px] lg:text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-accent/10 transition-all font-bold"
-                  >
-                    <Link href="/faire-un-don">
-                      Faire un Don
-                      <ArrowUpRight className="size-4" />
-                    </Link>
-                  </Button>
-                </div>
+                <Button
+                  asChild
+                  className="bg-accent text-accent-foreground hover:bg-white hover:text-primary rounded-2xl px-12 h-14 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-accent/10 transition-all font-bold"
+                >
+                  <Link href="/a-propos">
+                    En savoir plus sur l'Amicale
+                    <ArrowUpRight className="size-4" />
+                  </Link>
+                </Button>
               </MotionWrapper>
             </div>
           </div>

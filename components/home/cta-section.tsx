@@ -21,7 +21,7 @@ export function CTASection() {
             <Button
               asChild
               size="lg"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-2xl px-8 h-12 text-sm font-medium"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-2xl px-12 h-14 text-sm font-bold uppercase tracking-wide"
             >
               <Link href="/contact">
                 Nous contacter
@@ -34,7 +34,7 @@ export function CTASection() {
               size="lg"
               className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-2xl px-8 h-12 text-sm font-medium bg-transparent"
             >
-              <Link href="/activites">Nos activités</Link>
+              <Link href="/articles">Parcourir nos articles</Link>
             </Button>
           </div>
         </div>

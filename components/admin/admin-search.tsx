@@ -78,7 +78,7 @@ export function AdminSearch() {
                                 ref={inputRef}
                                 value={query}
                                 onChange={(e) => handleSearch(e.target.value)}
-                                placeholder="Chercher une activité, un média ou un document..."
+                                placeholder="Chercher un article, un média ou un message..."
                                 className="flex-1 bg-transparent text-lg font-medium text-primary placeholder:text-muted-foreground outline-hidden"
                             />
                             <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-secondary rounded-xl transition-colors">
@@ -102,9 +102,8 @@ export function AdminSearch() {
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="size-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-accent-foreground transition-all">
-                                            {res.type === 'Activité' && <Calendar className="size-5" />}
+                                            {res.type === 'Article' && <FileText className="size-5" />}
                                             {res.type === 'Galerie' && <ImageIcon className="size-5" />}
-                                            {res.type === 'Publication' && <FileText className="size-5" />}
                                         </div>
                                         <div>
                                             <h4 className="text-sm font-bold text-primary">{res.title}</h4>

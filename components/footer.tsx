@@ -8,7 +8,7 @@ const footerLinks = {
     { href: "/", label: "Accueil" },
     { href: "/a-propos", label: "A Propos" },
     { href: "/galerie", label: "Galerie" },
-    { href: "/actualites", label: "Actualités" },
+    { href: "/articles", label: "Articles" },
   ],
   ressources: [
     { href: "#", label: "Ressources à venir" },

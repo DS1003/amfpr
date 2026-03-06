@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, FileText, MessageSquare, Users, ArrowUpRight, Plus, Rocket, TrendingUp, Sparkles } from "lucide-react"
+import { Calendar, FileText, MessageSquare, Users, ArrowUpRight, Plus, Rocket, TrendingUp, Sparkles, Image as ImageIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -41,7 +41,7 @@ export default function AdminDashboard() {
                     <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl px-6 h-12 font-bold shadow-lg shadow-accent/10 transition-all hover:scale-105 active:scale-95">
                         <Link href="/admin/activites/nouveau">
                             <Plus className="mr-2 size-4" />
-                            Poster une Mise à jour
+                            Nouvel Article
                         </Link>
                     </Button>
                 </div>
@@ -54,10 +54,10 @@ export default function AdminDashboard() {
                 animate="show"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             >
-                <StatsCard variants={item} icon={Calendar} label="Activités" value="12" growth="+2 ce mois" />
-                <StatsCard variants={item} icon={FileText} label="Publications" value="8" growth="+1 cette semaine" />
+                <StatsCard variants={item} icon={FileText} label="Articles" value="20" growth="+3 ce mois" />
                 <StatsCard variants={item} icon={MessageSquare} label="Messages" value="24" growth="3 non lus" color="accent" />
                 <StatsCard variants={item} icon={Users} label="Membres" value="156" growth="+12 ce trimestre" />
+                <StatsCard variants={item} icon={ImageIcon} label="Galeries" value="5" growth="+1 cette semaine" />
             </motion.div>
 
             {/* Recent Activity Section */}
@@ -69,18 +69,16 @@ export default function AdminDashboard() {
                     transition={{ delay: 0.4 }}
                     className="lg:col-span-8 bg-white rounded-3xl border border-border/60 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-500"
                 >
-                    <div className="p-8 border-b border-border/60 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <div className="size-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
-                                <Rocket className="size-5" />
-                            </div>
-                            <h3 className="font-serif font-bold text-xl text-primary">Activités récentes</h3>
+                    <div className="flex items-center gap-3">
+                        <div className="size-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary">
+                            <Rocket className="size-5" />
                         </div>
-                        <Link href="/admin/activites" className="text-sm font-bold text-accent hover:text-accent/80 transition-colors flex items-center gap-1.5 group">
-                            Voir tout l'historique
-                            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                        </Link>
+                        <h3 className="font-serif font-bold text-xl text-primary">Articles récents</h3>
                     </div>
+                    <Link href="/admin/activites" className="text-sm font-bold text-accent hover:text-accent/80 transition-colors flex items-center gap-1.5 group">
+                        Voir toute la liste
+                        <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </Link>
                     <div className="divide-y divide-border/60">
                         {[
                             { title: "Campagne de Sensibilisation Octobre Rose", status: "Publié", time: "il y a 2h" },
@@ -93,7 +91,7 @@ export default function AdminDashboard() {
                                 className="p-6 cursor-pointer group flex items-center gap-5"
                             >
                                 <div className="size-14 rounded-2xl bg-secondary/50 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors group-hover:text-white">
-                                    <Calendar className="size-6 transition-transform group-hover:scale-110" />
+                                    <FileText className="size-6 transition-transform group-hover:scale-110" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h4 className="text-base font-bold text-primary truncate group-hover:text-accent transition-colors">{act.title}</h4>

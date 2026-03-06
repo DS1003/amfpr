@@ -18,13 +18,13 @@ export default async function AdminActivites() {
                         <span className="h-px w-8 bg-accent" />
                         <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">Contenu</span>
                     </div>
-                    <h1 className="font-serif text-3xl font-bold text-primary tracking-tight">Gestion des activités</h1>
-                    <p className="mt-2 text-muted-foreground">Publiez et modifiez les actions de l'amicale.</p>
+                    <h1 className="font-serif text-3xl font-bold text-primary tracking-tight">Gestion des articles</h1>
+                    <p className="mt-2 text-muted-foreground">Publiez et modifiez les articles et récits de l'amicale.</p>
                 </div>
                 <Button asChild className="bg-primary hover:bg-primary/90 rounded-xl px-6 h-12">
                     <Link href="/admin/activites/nouveau">
                         <Plus className="mr-2 size-4" />
-                        Ajouter une activité
+                        Ajouter un article
                     </Link>
                 </Button>
             </div>
@@ -35,7 +35,7 @@ export default async function AdminActivites() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <input
                         type="text"
-                        placeholder="Rechercher une activité..."
+                        placeholder="Rechercher un article..."
                         className="w-full pl-10 pr-4 py-2 bg-secondary/30 border-transparent focus:bg-white focus:border-accent rounded-xl text-sm transition-all focus:ring-0"
                     />
                 </div>
@@ -102,9 +102,9 @@ export default async function AdminActivites() {
                             )) : (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center">
-                                        <div className="text-muted-foreground">Aucune activité trouvée.</div>
+                                        <div className="text-muted-foreground">Aucun article trouvé.</div>
                                         <Button asChild variant="link" className="text-accent mt-2">
-                                            <Link href="/admin/activites/nouveau">Ajouter votre première activité</Link>
+                                            <Link href="/admin/activites/nouveau">Ajouter votre premier article</Link>
                                         </Button>
                                     </td>
                                 </tr>

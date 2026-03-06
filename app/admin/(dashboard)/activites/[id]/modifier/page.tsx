@@ -22,7 +22,7 @@ export default async function ModifierArticlePage({ params }: { params: { id: st
                     <span className="h-px w-8 bg-accent" />
                     <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">Édition</span>
                 </div>
-                <h1 className="font-serif text-3xl font-bold text-primary tracking-tight">Modifier l'activité</h1>
+                <h1 className="font-serif text-3xl font-bold text-primary tracking-tight">Modifier l'article</h1>
                 <p className="mt-2 text-muted-foreground">Mettez à jour les informations de cet article.</p>
             </div>
 

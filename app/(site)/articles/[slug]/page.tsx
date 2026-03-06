@@ -8,7 +8,7 @@ import Link from "next/link"
 import { SenegalStripe } from "@/components/senegal-stripe"
 import { ShareButton } from "@/components/share-button"
 
-export default async function ActivityDetailPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
     const { slug } = await params
     const activity = await prisma.activity.findUnique({
         where: { slug },
@@ -77,13 +77,13 @@ export default async function ActivityDetailPage({ params }: { params: { slug: s
                             {/* Navigation */}
                             <div className="px-4">
                                 <Link
-                                    href="/activites"
+                                    href="/articles"
                                     className="group inline-flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.2em] text-accent hover:text-primary transition-all"
                                 >
                                     <div className="size-10 rounded-full border border-accent/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                         <ArrowLeft className="size-4" />
                                     </div>
-                                    <span>Toutes les activités</span>
+                                    <span>Tous nos articles</span>
                                 </Link>
                             </div>
                         </div>

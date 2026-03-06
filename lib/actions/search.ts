@@ -37,9 +37,8 @@ export async function globalSearch(query: string) {
     ])
 
     const results = [
-        ...activities.map((a: any) => ({ id: a.id, title: a.title, type: 'Activité', href: `/admin/activites/${a.id}/modifier` })),
-        ...galeries.map((g: any) => ({ id: g.id, title: g.title, type: 'Galerie', href: `/admin/galeries/${g.id}/modifier` })),
-        ...publications.map((p: any) => ({ id: p.id, title: p.title, type: 'Publication', href: `/admin/publications` }))
+        ...activities.map((a: any) => ({ id: a.id, title: a.title, type: 'Article', href: `/admin/activites/${a.id}/modifier` })),
+        ...galeries.map((g: any) => ({ id: g.id, title: g.title, type: 'Galerie', href: `/admin/galeries/${g.id}/modifier` }))
     ]
 
     return results

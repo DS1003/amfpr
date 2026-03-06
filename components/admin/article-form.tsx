@@ -135,7 +135,7 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
                                     id="description"
                                     name="description"
                                     defaultValue={initialData?.description}
-                                    placeholder="Résumé bref pour la liste des activités..."
+                                    placeholder="Résumé bref pour la liste des articles..."
                                     required
                                     className="rounded-xl border-border resize-none"
                                     rows={3}
