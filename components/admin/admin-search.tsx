@@ -68,7 +68,7 @@ export function AdminSearch() {
             </button>
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 bg-primary/20 backdrop-blur-md flex items-start justify-center pt-[10vh] p-6 animate-in fade-in duration-300">
+                <div className="fixed inset-0 z-50 bg-white/80 backdrop-blur-md flex items-start justify-center pt-[10vh] p-6 animate-in fade-in duration-300">
                     <div onClick={() => setIsOpen(false)} className="absolute inset-0" />
 
                     <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-border overflow-hidden animate-in slide-in-from-top-4 duration-500">

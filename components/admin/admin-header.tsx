@@ -19,9 +19,9 @@ export function AdminHeader({ user, unreadCount = 0 }: { user: any, unreadCount?
             <div className="flex items-center gap-6">
                 {/* Quick Add */}
                 <div className="hidden md:block">
-                    <Button asChild className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-6 h-12 text-sm font-bold shadow-lg shadow-primary/10 transition-all hover:scale-[1.02]">
+                    <Button asChild variant="outline" className="rounded-xl px-6 h-10 text-[10px] font-black uppercase tracking-widest border-accent/20 text-accent hover:bg-accent hover:text-white transition-all shadow-sm">
                         <Link href="/admin/activites/nouveau">
-                            <Plus className="mr-2 size-4" />
+                            <Plus className="mr-1.5 size-3.5" />
                             Action Rapide
                         </Link>
                     </Button>
@@ -45,7 +45,7 @@ export function AdminHeader({ user, unreadCount = 0 }: { user: any, unreadCount?
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-secondary transition-all group">
-                            <div className="size-10 rounded-xl bg-accent text-accent-foreground flex items-center justify-center font-serif font-bold group-hover:scale-105 transition-transform">
+                            <div className="size-10 rounded-xl bg-secondary border border-border/50 text-primary flex items-center justify-center font-serif font-bold group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
                                 {user?.name?.[0] || user?.email?.[0]?.toUpperCase() || 'A'}
                             </div>
                             <div className="hidden lg:block text-left mr-2">

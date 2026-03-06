@@ -53,14 +53,14 @@ export function MessagesClient({ initialMessages }: { initialMessages: any[] }) 
             {/* Header Area */}
             <div className="flex items-end justify-between">
                 <div>
-                    <div className="flex items-center gap-3 mb-4">
-                        <span className="h-px w-8 bg-accent" />
-                        <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-accent">Messages</span>
+                    <div className="flex items-center gap-3 mb-3">
+                        <span className="h-px w-6 bg-accent/40" />
+                        <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-accent/80">Messages</span>
                     </div>
-                    <h1 className="font-serif text-4xl font-bold text-primary flex items-center gap-4">
+                    <h1 className="font-serif text-3xl font-bold text-primary flex items-center gap-4">
                         Boîte de réception
                         {unreadCount > 0 && (
-                            <span className="bg-accent text-accent-foreground text-xs px-3 py-1 rounded-full font-bold">
+                            <span className="bg-accent/10 text-accent text-[10px] px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider border border-accent/20">
                                 {unreadCount} Nouveau{unreadCount > 1 ? 'x' : ''}
                             </span>
                         )}
@@ -71,10 +71,10 @@ export function MessagesClient({ initialMessages }: { initialMessages: any[] }) 
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <input
                         type="text"
-                        placeholder="Chercher par nom, sujet, email..."
+                        placeholder="Rechercher..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 h-12 bg-white/50 border border-border/50 rounded-2xl text-sm focus:bg-white focus:border-accent transition-all outline-hidden"
+                        className="w-full pl-12 pr-4 h-11 bg-white border border-border/40 rounded-xl text-sm focus:bg-white focus:border-accent/40 transition-all outline-hidden shadow-sm"
                     />
                 </div>
             </div>
@@ -86,14 +86,14 @@ export function MessagesClient({ initialMessages }: { initialMessages: any[] }) 
                         {filteredMessages.length > 0 ? filteredMessages.map((msg) => (
                             <motion.div
                                 layout
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 key={msg.id}
                                 onClick={() => handleMarkAsRead(msg.id)}
-                                className={`group p-6 rounded-3xl border transition-all cursor-pointer relative ${selectedId === msg.id
-                                        ? "bg-primary text-white border-primary shadow-xl shadow-primary/20"
-                                        : "bg-white border-border/50 hover:border-accent hover:shadow-lg"
+                                className={`group p-5 rounded-2xl transition-all cursor-pointer relative ${selectedId === msg.id
+                                    ? "bg-white shadow-xl shadow-primary/5 ring-1 ring-border/50 z-10"
+                                    : "bg-transparent hover:bg-white/40"
                                     }`}
                             >
                                 {!msg.read && (
@@ -101,23 +101,23 @@ export function MessagesClient({ initialMessages }: { initialMessages: any[] }) 
                                 )}
 
                                 <div className="flex items-start justify-between mb-3">
-                                    <div className={`text-[10px] font-black uppercase tracking-widest ${selectedId === msg.id ? "text-white/60" : "text-accent"}`}>
+                                    <div className={`text-[10px] font-black uppercase tracking-widest ${selectedId === msg.id ? "text-accent" : "text-muted-foreground/60"}`}>
                                         {format(new Date(msg.createdAt), "dd MMM yyyy", { locale: fr })}
                                     </div>
-                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                         <button
                                             onClick={(e) => handleDelete(msg.id, e)}
-                                            className={`p-1.5 rounded-lg transition-colors ${selectedId === msg.id ? "hover:bg-white/10 text-white/50" : "hover:bg-red-50 text-red-500/50 hover:text-red-500"}`}
+                                            className={`p-1.5 rounded-lg transition-colors ${selectedId === msg.id ? "hover:bg-red-50 text-red-500/30 hover:text-red-500" : "hover:bg-red-50 text-red-500/50 hover:text-red-500"}`}
                                         >
                                             <Trash2 className="size-4" />
                                         </button>
                                     </div>
                                 </div>
 
-                                <h3 className={`font-bold text-base truncate mb-1 ${selectedId === msg.id ? "text-white" : "text-primary"}`}>
+                                <h3 className={`font-bold text-base truncate mb-1 ${selectedId === msg.id ? "text-primary" : "text-primary/80"}`}>
                                     {msg.subject}
                                 </h3>
-                                <div className={`text-sm truncate font-medium ${selectedId === msg.id ? "text-white/70" : "text-muted-foreground"}`}>
+                                <div className={`text-[11px] truncate font-bold uppercase tracking-wider ${selectedId === msg.id ? "text-primary" : "text-muted-foreground"}`}>
                                     {msg.name}
                                 </div>
                             </motion.div>
@@ -142,30 +142,35 @@ export function MessagesClient({ initialMessages }: { initialMessages: any[] }) 
                                 className="flex flex-col h-full"
                             >
                                 {/* Message Header */}
-                                <div className="p-10 border-b border-border/50 flex items-start justify-between bg-secondary/10">
-                                    <div className="flex gap-6">
-                                        <div className="size-16 rounded-2xl bg-white border border-border shadow-sm flex items-center justify-center text-accent">
-                                            <User className="size-8" />
+                                <div className="p-8 border-b border-border/30 flex items-start justify-between bg-[#FAF8F5]/50 backdrop-blur-sm">
+                                    <div className="flex gap-5">
+                                        <div className="size-14 rounded-2xl bg-white border border-border/40 shadow-sm flex items-center justify-center text-accent">
+                                            <User className="size-6" />
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-serif font-bold text-primary mb-2 leading-tight">
+                                            <h2 className="text-xl font-serif font-bold text-primary mb-1.5 leading-tight">
                                                 {selectedMessage.subject}
                                             </h2>
-                                            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-                                                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                                                    <Mail className="size-4 text-accent" />
+                                            <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+                                                <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                                                    <Mail className="size-3.5 text-accent/60" />
                                                     {selectedMessage.email}
                                                 </div>
-                                                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                                                    <Calendar className="size-4 text-accent" />
-                                                    {format(new Date(selectedMessage.createdAt), "EEEE d MMMM yyyy 'à' HH:mm", { locale: fr })}
+                                                <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                                                    <Calendar className="size-3.5 text-accent/60" />
+                                                    {format(new Date(selectedMessage.createdAt), "d MMMM yyyy", { locale: fr })}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex gap-3">
-                                        <Button variant="outline" className="rounded-xl border-border/60 hover:bg-red-50 hover:text-red-500 transition-colors h-11" onClick={(e) => handleDelete(selectedMessage.id, e as any)}>
-                                            <Trash2 className="size-4 mr-2" />
+                                    <div className="flex gap-2">
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="rounded-xl hover:bg-red-50 hover:text-red-500 transition-colors h-9 text-[10px] font-black uppercase tracking-widest text-muted-foreground/50"
+                                            onClick={(e) => handleDelete(selectedMessage.id, e as any)}
+                                        >
+                                            <Trash2 className="size-3.5 mr-2" />
                                             Supprimer
                                         </Button>
                                     </div>

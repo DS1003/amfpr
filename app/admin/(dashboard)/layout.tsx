@@ -22,22 +22,22 @@ export default async function AdminLayout({
     return (
         <div className="flex min-h-screen bg-[#FAF8F5]">
             {/* Sidebar */}
-            <aside className="w-72 bg-[#0E3B2E] text-white flex flex-col fixed h-full z-50">
-                <div className="p-8 border-b border-white/5">
+            <aside className="w-72 bg-white text-primary flex flex-col fixed h-full z-50 border-r border-border/60 shadow-sm">
+                <div className="p-8 border-b border-border/60">
                     <Link href="/admin" className="flex items-center gap-4 group">
-                        <div className="size-11 rounded-2xl bg-accent flex items-center justify-center text-accent-foreground font-serif font-bold transition-transform group-hover:scale-110 shadow-lg shadow-accent/20">
+                        <div className="size-11 rounded-2xl bg-secondary border border-border/50 flex items-center justify-center text-primary font-serif font-bold transition-all group-hover:scale-110 shadow-sm">
                             AF
                         </div>
                         <div>
                             <h2 className="font-serif font-bold text-xl leading-tight tracking-tight">AFPR</h2>
-                            <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Administration</p>
+                            <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Administration</p>
                         </div>
                     </Link>
                 </div>
 
                 <nav className="flex-1 p-6 space-y-1.5 overflow-y-auto custom-scrollbar">
                     <div className="pb-3">
-                        <p className="px-4 text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Principal</p>
+                        <p className="px-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">Principal</p>
                     </div>
                     <AdminNavLink href="/admin" icon={LayoutDashboard} label="Tableau de bord" />
                     <AdminNavLink href="/admin/activites" icon={FileText} label="Articles" />
@@ -45,22 +45,22 @@ export default async function AdminLayout({
                     <AdminNavLink href="/admin/messages" icon={MessageSquare} label="Messages" badge={unreadCount} />
 
                     <div className="pt-10 pb-3">
-                        <p className="px-4 text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold">Système</p>
+                        <p className="px-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-bold">Système</p>
                     </div>
                     <AdminNavLink href="/admin/settings" icon={Settings} label="Paramètres" />
                 </nav>
 
-                <div className="p-6 border-t border-white/5">
+                <div className="p-6 border-t border-border/60">
                     <Link
                         href="/"
                         target="_blank"
-                        className="flex items-center justify-between w-full px-5 py-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all text-white/70 hover:text-white group border border-white/5"
+                        className="flex items-center justify-between w-full px-5 py-4 rounded-2xl bg-secondary/50 hover:bg-secondary transition-all text-primary/70 hover:text-primary group border border-border/40"
                     >
                         <div className="flex items-center gap-3">
                             <ExternalLink className="size-4 opacity-50 group-hover:opacity-100 transition-all" />
                             <span className="text-xs font-bold uppercase tracking-widest">Voir le Site</span>
                         </div>
-                        <ArrowUpRight className="size-3 text-white/30 group-hover:text-white transition-colors" />
+                        <ArrowUpRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors" />
                     </Link>
                 </div>
             </aside>
@@ -92,12 +92,12 @@ function AdminNavLink({ href, icon: Icon, label, badge }: { href: string; icon: 
     return (
         <Link
             href={href}
-            className="flex items-center gap-3 px-5 py-3.5 rounded-2xl hover:bg-white/5 transition-all text-white/60 hover:text-white group font-medium"
+            className="flex items-center gap-3 px-5 py-3 rounded-xl hover:bg-secondary/40 transition-all text-muted-foreground hover:text-primary group font-medium"
         >
-            <Icon className="size-5 shrink-0 transition-transform group-hover:scale-110" />
-            <span className="text-sm tracking-tight flex-1">{label}</span>
+            <Icon className="size-4.5 shrink-0 transition-transform group-hover:scale-110 text-muted-foreground/60 group-hover:text-accent" />
+            <span className="text-[13px] tracking-tight flex-1">{label}</span>
             {badge !== undefined && badge > 0 && (
-                <span className="bg-accent text-accent-foreground text-[10px] font-black px-2 py-0.5 rounded-full">
+                <span className="bg-accent/10 text-accent text-[9px] font-black px-2 py-0.5 rounded-full border border-accent/20">
                     {badge}
                 </span>
             )}
