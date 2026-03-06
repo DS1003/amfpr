@@ -1,8 +1,24 @@
-import { Shield, ArrowLeft } from "lucide-react"
+"use client"
+
+import { Shield, ArrowLeft, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { login } from "@/lib/actions/auth"
+import { useTransition } from "react"
+import { toast } from "sonner"
 
 export default function AdminLoginPage() {
+    const [isPending, startTransition] = useTransition()
+
+    const handleSubmit = async (formData: FormData) => {
+        startTransition(async () => {
+            const result = await login(formData)
+            if (result?.error) {
+                toast.error(result.error)
+            }
+        })
+    }
+
     return (
         <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-6 relative overflow-hidden">
             {/* Background Decor */}
@@ -28,36 +44,43 @@ export default function AdminLoginPage() {
                     <p className="mt-3 text-muted-foreground">Accès réservé au personnel autorisé de l'AFPR.</p>
                 </div>
 
-                <div className="bg-white p-8 rounded-3xl border border-border shadow-xl shadow-primary/5 space-y-6">
+                <form action={handleSubmit} className="bg-white p-8 rounded-3xl border border-border shadow-xl shadow-primary/5 space-y-6">
                     <div className="space-y-4">
                         <div className="space-y-2">
                             <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-primary/70">Email Institutionnel</label>
                             <input
                                 id="email"
+                                name="email"
                                 type="email"
+                                required
                                 placeholder="admin@afpr.org"
-                                className="w-full px-5 py-4 bg-secondary/30 border-transparent focus:bg-white focus:border-accent rounded-2xl text-sm transition-all focus:ring-0"
+                                className="w-full px-5 py-4 bg-secondary/30 border-transparent focus:bg-white focus:border-accent rounded-2xl text-sm transition-all focus:ring-0 outline-hidden"
                             />
                         </div>
                         <div className="space-y-2">
                             <label htmlFor="pass" className="text-xs font-bold uppercase tracking-widest text-primary/70">Mot de passe</label>
                             <input
                                 id="pass"
+                                name="password"
                                 type="password"
+                                required
                                 placeholder="••••••••"
-                                className="w-full px-5 py-4 bg-secondary/30 border-transparent focus:bg-white focus:border-accent rounded-2xl text-sm transition-all focus:ring-0"
+                                className="w-full px-5 py-4 bg-secondary/30 border-transparent focus:bg-white focus:border-accent rounded-2xl text-sm transition-all focus:ring-0 outline-hidden"
                             />
                         </div>
                     </div>
 
-                    <Button className="w-full bg-primary hover:bg-primary/90 rounded-2xl h-14 text-sm font-bold tracking-wide transition-all hover:shadow-lg hover:shadow-primary/20">
-                        Se connecter
+                    <Button
+                        disabled={isPending}
+                        className="w-full bg-primary hover:bg-primary/90 rounded-2xl h-14 text-sm font-bold tracking-wide transition-all hover:shadow-lg hover:shadow-primary/20"
+                    >
+                        {isPending ? <Loader2 className="size-4 animate-spin" /> : "Se connecter"}
                     </Button>
 
-                    <Button variant="link" className="w-full text-xs text-muted-foreground hover:text-accent font-medium">
-                        Identifiants oubliés ?
+                    <Button asChild variant="link" className="w-full text-xs text-muted-foreground hover:text-accent font-medium">
+                        <Link href="/admin/login/mot-de-passe-oublie">Identifiants oubliés ?</Link>
                     </Button>
-                </div>
+                </form>
 
                 <div className="text-center">
                     <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-medium opacity-50">

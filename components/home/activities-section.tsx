@@ -50,21 +50,21 @@ export async function ActivitiesSection() {
   return (
     <SectionWrapper variant="muted">
       <MotionWrapper>
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 md:gap-4 mb-10 md:mb-12">
           <div>
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-4 md:mb-5">
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
-              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">
+              <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">
                 Nos actions
               </span>
             </div>
             <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl leading-[1.15]">
-              {"Activit\u00e9s r\u00e9centes"}
+              {"Activités récentes"}
             </h2>
           </div>
           <Link
             href="/activites"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-xs md:text-sm font-medium text-primary hover:text-accent transition-colors duration-300"
           >
             Voir toutes les activités
             <ArrowRight className="size-4" />

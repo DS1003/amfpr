@@ -78,13 +78,13 @@ export function Navbar() {
         className={cn(
           "transition-all duration-500",
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-md py-3"
-            : "bg-white py-4"
+            ? "bg-white/95 backdrop-blur-md shadow-md py-1.5"
+            : "bg-white py-2"
         )}>
         <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <div className="relative h-16 w-48 sm:h-20 sm:w-56">
+            <div className="relative h-12 w-36 sm:h-14 sm:w-44">
               <Image
                 src="/images/logo.png"
                 alt="Logo Amicale des Femmes de la Présidence de la République"

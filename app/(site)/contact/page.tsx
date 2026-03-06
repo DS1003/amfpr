@@ -16,6 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Mail, MapPin, Phone, Clock, Send, CheckCircle, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { submitContactMessage } from "@/lib/actions/message"
+import { toast } from "sonner"
 
 const contactInfo = [
   {
@@ -68,9 +70,14 @@ export default function ContactPage() {
     setErrors(newErrors)
 
     if (Object.keys(newErrors).length === 0) {
-      // Simulate API call for premium feeling
-      await new Promise(resolve => setTimeout(resolve, 800))
-      setSubmitted(true)
+      try {
+        await submitContactMessage(formData)
+        setSubmitted(true)
+        toast.success("Message envoyé !")
+      } catch (err) {
+        toast.error("Erreur lors de l'envoi. Veuillez réessayer.")
+        console.error(err)
+      }
     }
     setIsSubmitting(false)
   }

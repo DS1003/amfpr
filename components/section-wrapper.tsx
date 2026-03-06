@@ -17,7 +17,7 @@ export function SectionWrapper({
     <section
       id={id}
       className={cn(
-        "py-24 lg:py-32",
+        "py-16 md:py-24 lg:py-32",
         variant === "muted" && "bg-secondary/50",
         variant === "primary" && "bg-primary text-primary-foreground",
         className

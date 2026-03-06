@@ -58,6 +58,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+import { Toaster } from 'sonner'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,8 +69,10 @@ export default function RootLayout({
     <html lang="fr">
       <body
         className={`${dmSans.variable} ${playfair.variable} font-sans antialiased`}
+        suppressHydrationWarning
       >
         <main>{children}</main>
+        <Toaster position="top-center" richColors />
         <Analytics />
       </body>
     </html>

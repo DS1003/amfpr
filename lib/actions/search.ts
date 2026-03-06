@@ -1,0 +1,46 @@
+"use server"
+
+import prisma from "@/lib/prisma"
+import { getSession } from "./auth"
+
+export async function globalSearch(query: string) {
+    const { user } = await getSession()
+    if (!user) throw new Error("Non autorisé")
+
+    if (!query || query.length < 2) return []
+
+    const [activities, galeries, publications] = await Promise.all([
+        prisma.activity.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query, mode: 'insensitive' } },
+                    { description: { contains: query, mode: 'insensitive' } }
+                ]
+            },
+            take: 5
+        }),
+        prisma.gallery.findMany({
+            where: {
+                title: { contains: query, mode: 'insensitive' }
+            },
+            take: 5
+        }),
+        prisma.publication.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query, mode: 'insensitive' } },
+                    { description: { contains: query, mode: 'insensitive' } }
+                ]
+            },
+            take: 5
+        })
+    ])
+
+    const results = [
+        ...activities.map((a: any) => ({ id: a.id, title: a.title, type: 'Activité', href: `/admin/activites/${a.id}/modifier` })),
+        ...galeries.map((g: any) => ({ id: g.id, title: g.title, type: 'Galerie', href: `/admin/galeries/${g.id}/modifier` })),
+        ...publications.map((p: any) => ({ id: p.id, title: p.title, type: 'Publication', href: `/admin/publications` }))
+    ]
+
+    return results
+}

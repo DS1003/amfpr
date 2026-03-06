@@ -34,7 +34,7 @@ const values = [
 export function PresentationSection() {
   return (
     <SectionWrapper>
-      <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+      <div className="grid grid-cols-1 gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
         {/* Text Content */}
         <div>
           <MotionWrapper>
@@ -45,7 +45,7 @@ export function PresentationSection() {
               </span>
             </div>
             <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl lg:text-[2.75rem] leading-[1.15]">
-              {"Au service de la communaut\u00e9 depuis des d\u00e9cennies"}
+              {"Au service de la communauté depuis des décennies"}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
               {
@@ -62,7 +62,7 @@ export function PresentationSection() {
 
         {/* Image */}
         <MotionWrapper delay={200} direction="right">
-          <div className="relative aspect-[3/2] overflow-hidden rounded-2xl shadow-xl">
+          <div className="relative aspect-video lg:aspect-[3/2] overflow-hidden rounded-3xl shadow-xl">
             <Image
               src="/images/about-new.jpg?v=1"
               alt="Célébration du 8 Mars - Amicale des Femmes de la Présidence"
@@ -75,7 +75,7 @@ export function PresentationSection() {
       </div>
 
       {/* Senegalese stripe divider */}
-      <SenegalStripe className="mt-20 mb-14 max-w-xs mx-auto rounded-full overflow-hidden" />
+      <SenegalStripe className="mt-12 md:mt-20 mb-14 max-w-xs mx-auto rounded-full overflow-hidden" />
 
       {/* Values Grid */}
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">

@@ -4,8 +4,9 @@ import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
 export default async function ModifierGaleriePage({ params }: { params: { id: string } }) {
+    const { id } = await params
     const gallery = await prisma.gallery.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: { photos: true }
     })
 
