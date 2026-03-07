@@ -4,24 +4,19 @@ import { SenegalStripe } from "@/components/senegal-stripe"
 
 const formerPresidents = [
     {
-        name: "Mme. Mariam Faye Sall",
-        tenure: "2012 — 2024",
-        image: "/images/former_1.jpg",
+        name: "Mme Katy Ndiaye",
+        tenure: "1ère Présidente",
+        image: "/images/katy_ndiaye.jpg",
     },
     {
-        name: "Mme. Viviane Wade",
-        tenure: "2000 — 2012",
-        image: "/images/former_2.jpg",
+        name: "Mme Ndèye Fatou Sy",
+        tenure: "2ème Présidente",
+        image: "/images/ndeye_fatou_sy.jpg",
     },
     {
-        name: "Mme. Elizabeth Diouf",
-        tenure: "1981 — 2000",
-        image: "/images/former_3.jpg",
-    },
-    {
-        name: "Mme. Colette Senghor",
-        tenure: "1960 — 1980",
-        image: "/images/former_4.jpg",
+        name: "Mme MBAYE Bougouma",
+        tenure: "3ème Présidente",
+        image: "/images/mbaye_bougouma.jpg",
     },
 ]
 
@@ -37,7 +32,7 @@ export function FormerPresidents() {
                             <span className="h-px w-8 bg-accent" />
                         </div>
                         <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl lg:text-5xl leading-[1.15]">
-                            Les présidentes d'honneur
+                            Nos anciennes présidentes
                         </h2>
                         <p className="mt-4 mx-auto max-w-2xl text-base text-muted-foreground leading-relaxed">
                             Hommage à ces femmes d'exception qui ont guidé notre amicale avec sagesse et dévouement à travers les époques.
@@ -45,7 +40,7 @@ export function FormerPresidents() {
                     </div>
                 </MotionWrapper>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     {formerPresidents.map((president, index) => (
                         <MotionWrapper key={president.name} delay={index * 150}>
                             <div className="group relative">
