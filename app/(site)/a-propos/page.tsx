@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { PageHeader } from "@/components/page-header"
-import { HistorySection } from "@/components/about/history-section"
+import { Presentation } from "@/components/about/presentation"
+import { MissionsActions } from "@/components/about/missions-actions"
+import { Governance } from "@/components/about/governance"
 import { PresidentWord } from "@/components/about/president-word"
 import { FormerPresidents } from "@/components/about/former-presidents"
 
@@ -18,7 +20,9 @@ export default function AboutPage() {
         title="Notre histoire, nos valeurs"
         description="L'Amicale des Femmes de la Présidence de la République s'engage depuis des décennies pour le développement social et l'autonomisation des femmes au Sénégal."
       />
-      <HistorySection />
+      <Presentation />
+      <MissionsActions />
+      <Governance />
       <PresidentWord />
       <FormerPresidents />
     </>

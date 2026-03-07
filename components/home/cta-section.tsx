@@ -12,10 +12,10 @@ export function CTASection() {
         <div className="text-center max-w-2xl mx-auto">
           <SenegalStripe className="mx-auto mb-10 max-w-[120px] rounded-full overflow-hidden" />
           <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl lg:text-[2.75rem] text-primary-foreground leading-[1.15]">
-            {"Rejoignez notre engagement pour un avenir meilleur"}
+            {"Rejoignez notre élan de solidarité et d'engagement"}
           </h2>
           <p className="mt-6 text-base leading-relaxed text-primary-foreground/70">
-            {"D\u00e9couvrez comment vous pouvez contribuer \u00e0 nos actions sociales, \u00e9ducatives et de sant\u00e9. Ensemble, nous pouvons faire la diff\u00e9rence."}
+            {"Découvrez comment vous pouvez soutenir nos initiatives sociales en faveur des communautés vulnérables et encourager le leadership féminin. Ensemble, nous avons un impact plus fort."}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button

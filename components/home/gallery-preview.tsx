@@ -1,17 +1,40 @@
 import Image from "next/image"
+import Link from "next/link"
 import { SectionWrapper } from "@/components/section-wrapper"
 import { MotionWrapper } from "@/components/motion-wrapper"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+import prisma from "@/lib/prisma"
 
-const galleryImages = [
-  { src: "/images/hero.jpg", alt: "Événement officiel de l'AFPR" },
-  { src: "/images/about.jpg", alt: "Réunion du bureau exécutif" },
-  { src: "/images/activities.jpg", alt: "Distribution de dons" },
-  { src: "/images/education.jpg", alt: "Programme éducatif" },
-  { src: "/images/health.jpg", alt: "Campagne de santé" },
-  { src: "/images/partnership.jpg", alt: "Partenariats institutionnels" },
-]
+export async function GalleryPreview() {
+  // Fetch up to 6 most recent published gallery photos from DB
+  const galeries = await prisma.gallery.findMany({
+    where: { published: true },
+    include: { photos: true },
+    orderBy: { createdAt: "asc" },
+    take: 6,
+  })
 
-export function GalleryPreview() {
+  // Flatten all photos and take the first 6
+  const allPhotos = galeries.flatMap((g) =>
+    g.photos.map((p) => ({
+      src: p.url,
+      alt: p.caption || g.title || "Galerie AMFPR",
+    }))
+  ).slice(0, 6)
+
+  // Fallback to static images if no DB photos yet
+  const fallbackImages = [
+    { src: "/images/hero.jpg", alt: "Événement officiel de l'AFPR" },
+    { src: "/images/about.jpg", alt: "Réunion du bureau exécutif" },
+    { src: "/images/activities.jpg", alt: "Distribution de dons" },
+    { src: "/images/education.jpg", alt: "Programme éducatif" },
+    { src: "/images/health.jpg", alt: "Campagne de santé" },
+    { src: "/images/partnership.jpg", alt: "Partenariats institutionnels" },
+  ]
+
+  const images = allPhotos.length > 0 ? allPhotos : fallbackImages
+
   return (
     <SectionWrapper>
       <MotionWrapper>
@@ -35,8 +58,8 @@ export function GalleryPreview() {
       </MotionWrapper>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
-        {galleryImages.map((image, index) => (
-          <MotionWrapper key={image.src} delay={index * 80}>
+        {images.map((image, index) => (
+          <MotionWrapper key={image.src + index} delay={index * 80}>
             <div className="group relative overflow-hidden rounded-2xl aspect-[4/3]">
               <Image
                 src={image.src}
@@ -50,6 +73,22 @@ export function GalleryPreview() {
           </MotionWrapper>
         ))}
       </div>
+
+      {/* Voir plus button */}
+      <MotionWrapper delay={500}>
+        <div className="mt-12 flex justify-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-2xl px-10 h-14 text-sm font-bold uppercase tracking-wide shadow-lg shadow-primary/10 transition-all duration-300"
+          >
+            <Link href="/galerie">
+              Voir toute la galerie
+              <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </Button>
+        </div>
+      </MotionWrapper>
     </SectionWrapper>
   )
 }

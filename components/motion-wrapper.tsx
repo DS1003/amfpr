@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
 
 interface MotionWrapperProps {
   children: React.ReactNode
@@ -16,48 +16,37 @@ export function MotionWrapper({
   delay = 0,
   direction = "up",
 }: MotionWrapperProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-    )
-    const el = ref.current
-    if (el) observer.observe(el)
-    return () => {
-      if (el) observer.unobserve(el)
+  const getVariants = () => {
+    switch (direction) {
+      case "up":
+        return { hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }
+      case "down":
+        return { hidden: { opacity: 0, y: -50 }, visible: { opacity: 1, y: 0 } }
+      case "left":
+        return { hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }
+      case "right":
+        return { hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0 } }
+      case "none":
+        return { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+      default:
+        return { hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }
     }
-  }, [])
-
-  /* Smaller offsets = subtler, more dignified entrances */
-  const directionStyles = {
-    up: "translate-y-5",
-    down: "-translate-y-5",
-    left: "translate-x-5",
-    right: "-translate-x-5",
-    none: "",
   }
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "transition-all ease-[cubic-bezier(0.25,0.1,0.25,1)]",
-        isVisible
-          ? "opacity-100 translate-x-0 translate-y-0 duration-900"
-          : `opacity-0 ${directionStyles[direction]} duration-0`,
-        className
-      )}
-      style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
+    <motion.div
+      variants={getVariants()}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.8,
+        delay: delay / 1000,
+        ease: [0.16, 1, 0.3, 1], // Apple-like ease out
+      }}
+      className={cn(className)}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }

@@ -21,22 +21,22 @@ export function HeroSection() {
                 <div className="flex items-center gap-3 mb-4 lg:mb-6">
                   <HeartHandshake className="size-4 lg:size-5 text-accent" />
                   <span className="text-[10px] lg:text-xs font-bold tracking-widest text-accent uppercase font-serif italic">
-                    Soutenir les femmes du Sénégal
+                    Présidence de la République du Sénégal
                   </span>
                 </div>
               </MotionWrapper>
 
               <MotionWrapper delay={150}>
                 <h1 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.1] mb-6">
-                  Agir <span className="text-accent underline decoration-accent/30 underline-offset-8">Ensemble</span> <br className="hidden sm:block" />
-                  Pour Un <br className="hidden sm:block" />
-                  Futur Meilleur
+                  Solidarité, <span className="text-accent underline decoration-accent/30 underline-offset-8">Leadership</span> <br className="hidden sm:block" />
+                  et Engagement <br className="hidden sm:block" />
+                  Citoyen
                 </h1>
               </MotionWrapper>
 
               <MotionWrapper delay={300}>
                 <p className="text-base lg:text-lg leading-relaxed text-white/80 max-w-md mb-8 lg:mb-10">
-                  Rejoignez notre programme de solidarité pour apporter un soutien durable à nos initiatives locales. Chaque contribution aide à pérenniser nos actions sociales.
+                  Fédérer les femmes employées à la Présidence de la République autour d'un idéal commun pour bâtir un réseau fort d'entraide et d'action sociale.
                 </p>
               </MotionWrapper>
 

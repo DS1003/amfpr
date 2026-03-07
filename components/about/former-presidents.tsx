@@ -5,25 +5,30 @@ import { SenegalStripe } from "@/components/senegal-stripe"
 const formerPresidents = [
     {
         name: "Mme Katy Ndiaye",
-        tenure: "1ère Présidente",
+        tenure: "2016 — 2017",
         image: "/images/katy_ndiaye.jpg",
     },
     {
         name: "Mme Ndèye Fatou Sy",
-        tenure: "2ème Présidente",
+        tenure: "Déc. 2017 — Déc. 2020",
         image: "/images/ndeye_fatou_sy.jpg",
     },
     {
         name: "Mme MBAYE Bougouma",
-        tenure: "3ème Présidente",
+        tenure: "Déc. 2020 — Déc. 2023",
         image: "/images/mbaye_bougouma.jpg",
+    },
+    {
+        name: "Mme Marianne Diouf",
+        tenure: "Déc. 2023 — Mars 2024",
+        image: "/images/about.jpg",
     },
 ]
 
 export function FormerPresidents() {
     return (
         <section className="py-24 lg:py-32 bg-secondary/20">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
                 <MotionWrapper>
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-3 mb-5">
@@ -40,7 +45,7 @@ export function FormerPresidents() {
                     </div>
                 </MotionWrapper>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {formerPresidents.map((president, index) => (
                         <MotionWrapper key={president.name} delay={index * 150}>
                             <div className="group relative">
