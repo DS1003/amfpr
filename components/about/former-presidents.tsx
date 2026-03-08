@@ -28,7 +28,7 @@ const formerPresidents = [
 export function FormerPresidents() {
     return (
         <section className="py-24 lg:py-32 bg-secondary/20">
-            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
                 <MotionWrapper>
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-3 mb-5">

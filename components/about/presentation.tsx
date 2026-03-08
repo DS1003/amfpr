@@ -5,7 +5,7 @@ import { MotionWrapper } from "@/components/motion-wrapper"
 export function Presentation() {
     return (
         <SectionWrapper className="bg-white">
-            <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+            <div className="grid grid-cols-1 gap-10 sm:gap-16 lg:grid-cols-2 lg:items-center">
                 <MotionWrapper direction="left">
                     <span className="inline-block mb-4 text-xs font-medium tracking-widest uppercase text-accent">
                         Notre histoire
