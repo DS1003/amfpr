@@ -3,10 +3,12 @@ import { PresentationSection } from "@/components/home/presentation-section"
 import { ArticlesSection } from "@/components/home/articles-section"
 import { GalleryPreview } from "@/components/home/gallery-preview"
 import { CTASection } from "@/components/home/cta-section"
+import { WomensDayCelebration } from "@/components/home/womens-day-celebration"
 
 export default function HomePage() {
   return (
     <>
+      <WomensDayCelebration />
       <HeroSection />
       <PresentationSection />
       <ArticlesSection />
