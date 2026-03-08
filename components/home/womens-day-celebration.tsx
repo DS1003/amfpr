@@ -85,6 +85,7 @@ export function WomensDayCelebration() {
     const [isVisible, setIsVisible] = useState(false)
     const [showBanner, setShowBanner] = useState(true)
     const [particles, setParticles] = useState<Particle[]>([])
+    const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         // Show celebration from March 7 to March 9, 2026
@@ -93,9 +94,13 @@ export function WomensDayCelebration() {
         const month = now.getMonth() // 0-indexed, March = 2
         const day = now.getDate()
 
+        const mobile = window.innerWidth < 768
+        setIsMobile(mobile)
+
         if (year === 2026 && month === 2 && day >= 7 && day <= 9) {
             setIsVisible(true)
-            setParticles(generateParticles(50))
+            // Fewer particles on mobile for performance and cleanliness
+            setParticles(generateParticles(mobile ? 18 : 50))
 
             // Check if user dismissed it already this session
             const dismissed = sessionStorage.getItem("womens-day-dismissed")
@@ -114,13 +119,16 @@ export function WomensDayCelebration() {
 
     return (
         <>
-            {/* Confetti Layer - always visible during the period */}
+            {/* Confetti Layer */}
             <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
                 {particles.map((p) => (
                     <motion.div
                         key={p.id}
                         className="absolute"
-                        style={{ left: `${p.x}%` }}
+                        style={{
+                            left: `${p.x}%`,
+                            ...(isMobile && { transform: "scale(0.65)" }),
+                        }}
                         initial={{ y: -20, opacity: 1, rotate: 0 }}
                         animate={{
                             y: "110vh",
@@ -157,9 +165,9 @@ export function WomensDayCelebration() {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -100, opacity: 0 }}
                         transition={{ type: "spring", damping: 20, stiffness: 200 }}
-                        className="fixed top-0 left-0 right-0 z-[60] px-4 pt-3 pb-3"
+                        className="fixed top-0 left-0 right-0 z-[60] px-2 sm:px-4 pt-2 sm:pt-3 pb-2 sm:pb-3"
                     >
-                        <div className="mx-auto max-w-4xl relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#E8477D] via-[#F4A7C1] to-[#C8A951] shadow-2xl shadow-pink-500/20">
+                        <div className="mx-auto max-w-4xl relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#E8477D] via-[#F4A7C1] to-[#C8A951] shadow-2xl shadow-pink-500/20">
                             {/* Shimmer overlay */}
                             <motion.div
                                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -167,24 +175,28 @@ export function WomensDayCelebration() {
                                 transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
                             />
 
-                            <div className="relative flex items-center justify-center gap-4 px-6 py-4">
+                            <div className="relative flex items-center justify-center gap-2 sm:gap-4 pl-4 pr-10 sm:px-6 py-2.5 sm:py-4">
+                                {/* Sparkles hidden on mobile */}
                                 <motion.div
+                                    className="hidden sm:block shrink-0"
                                     animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
                                     transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
                                 >
                                     <Sparkles className="size-6 text-white drop-shadow-md" />
                                 </motion.div>
 
-                                <div className="text-center">
-                                    <p className="text-white font-serif text-lg md:text-xl font-bold tracking-wide drop-shadow-sm">
-                                        🌸 Bonne Journée Internationale des Droits des Femmes ! 🌸
+                                <div className="text-center min-w-0">
+                                    <p className="text-white font-serif text-[13px] sm:text-lg md:text-xl font-bold tracking-wide drop-shadow-sm leading-snug">
+                                        🌸 Bonne Journée des Droits des Femmes ! 🌸
                                     </p>
-                                    <p className="text-white/90 text-xs md:text-sm mt-0.5 font-medium">
-                                        8 Mars 2026 — L'Amicale célèbre la force et le courage de toutes les femmes 💪
+                                    <p className="text-white/90 text-[10px] sm:text-xs md:text-sm mt-0.5 font-medium leading-tight">
+                                        8 Mars 2026 — L&apos;Amicale célèbre la force de toutes les femmes 💪
                                     </p>
                                 </div>
 
+                                {/* Sparkles hidden on mobile */}
                                 <motion.div
+                                    className="hidden sm:block shrink-0"
                                     animate={{ rotate: [0, -15, 15, 0], scale: [1, 1.2, 1] }}
                                     transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, delay: 0.5 }}
                                 >
@@ -193,10 +205,10 @@ export function WomensDayCelebration() {
 
                                 <button
                                     onClick={handleDismiss}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
+                                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-1 sm:p-1.5 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
                                     aria-label="Fermer"
                                 >
-                                    <X className="size-4 text-white" />
+                                    <X className="size-3.5 sm:size-4 text-white" />
                                 </button>
                             </div>
                         </div>

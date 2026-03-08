@@ -8,9 +8,9 @@ import { ArrowUpRight, HeartHandshake } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <section className="relative bg-[#FAF8F5] pt-24 lg:pt-40 pb-12 lg:pb-24">
-      <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
-        <div className="relative min-h-[600px] lg:min-h-[700px] flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] bg-white border border-border/50 shadow-xl">
+    <section className="relative bg-[#FAF8F5] pt-20 sm:pt-24 lg:pt-40 pb-8 sm:pb-12 lg:pb-24">
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+        <div className="relative min-h-[auto] sm:min-h-[600px] lg:min-h-[700px] flex flex-col lg:flex-row overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-white border border-border/50 shadow-xl">
           {/* Text Column - Dark Green Background */}
           <div className="w-full lg:w-[45%] bg-[#0E3B2E] flex items-center z-20 order-2 lg:order-1 relative">
             {/* Subtle decorative element */}
@@ -43,7 +43,7 @@ export function HeroSection() {
               <MotionWrapper delay={450}>
                 <Button
                   asChild
-                  className="bg-accent text-accent-foreground hover:bg-white hover:text-primary rounded-2xl px-12 h-14 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-accent/10 transition-all font-bold"
+                  className="bg-accent text-accent-foreground hover:bg-white hover:text-primary rounded-2xl px-8 sm:px-12 h-12 sm:h-14 text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/10 transition-all w-full sm:w-auto"
                 >
                   <Link href="/a-propos">
                     En savoir plus sur l'Amicale
@@ -55,7 +55,7 @@ export function HeroSection() {
           </div>
 
           {/* Image Column */}
-          <div className="w-full lg:w-[55%] relative min-h-[400px] lg:min-h-full order-1 lg:order-2">
+          <div className="w-full lg:w-[55%] relative min-h-[280px] sm:min-h-[400px] lg:min-h-full order-1 lg:order-2">
             <Image
               src="/images/hero-group.jpg"
               alt="Membres de l'Amicale des Femmes de la Présidence de la République"
