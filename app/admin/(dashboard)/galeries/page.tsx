@@ -30,6 +30,22 @@ export default async function AdminGaleriesPage() {
                 </Link>
             </div>
 
+            {/* Navigation tabs */}
+            <div className="flex gap-2 border-b border-border pb-0">
+                <Link
+                    href="/admin/galeries"
+                    className="px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-accent border-b-2 border-accent"
+                >
+                    Albums Photos
+                </Link>
+                <Link
+                    href="/admin/galeries/videos"
+                    className="px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors border-b-2 border-transparent"
+                >
+                    Vidéos YouTube
+                </Link>
+            </div>
+
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {galeries.map((gallery) => (
                     <div key={gallery.id} className="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-lg hover:border-accent/20 transition-all duration-300">

@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, Phone, Mail, Search, Facebook, Twitter, Instagram, ArrowRight } from "lucide-react"
+import { Menu, Phone, Mail, Search, Facebook, Twitter, Instagram, ArrowRight, ChevronDown, Camera, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -16,10 +16,23 @@ import {
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 
-const navLinks = [
+interface NavLink {
+  href: string
+  label: string
+  children?: { href: string; label: string; icon: any; description: string }[]
+}
+
+const navLinks: NavLink[] = [
   { href: "/", label: "Accueil" },
   { href: "/a-propos", label: "A Propos" },
-  { href: "/galerie", label: "Galerie" },
+  {
+    href: "/galerie",
+    label: "Galerie",
+    children: [
+      { href: "/galerie/photos", label: "Nos Photos", icon: Camera, description: "Albums photos de nos activités" },
+      { href: "/galerie/videos", label: "Nos Vidéos", icon: Play, description: "Nos vidéos YouTube" },
+    ],
+  },
   { href: "/articles", label: "Articles" },
   { href: "/contact", label: "Contact" },
 ]
@@ -27,14 +40,41 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const pathname = usePathname()
   const isHome = pathname === "/"
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleMouseEnter = (label: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current)
+    }
+    setOpenDropdown(label)
+  }
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null)
+    }, 200)
+  }
 
   return (
     <motion.header
@@ -96,27 +136,89 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-2" ref={dropdownRef}>
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.children && pathname.startsWith(link.href + '/'));
+              const hasChildren = link.children && link.children.length > 0;
+
               return (
-                <Link
+                <div
                   key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "relative px-4 py-2 text-sm font-bold transition-colors uppercase tracking-tighter hover:text-accent",
-                    isActive ? "text-accent" : "text-primary/70"
-                  )}
+                  className="relative"
+                  onMouseEnter={() => hasChildren ? handleMouseEnter(link.label) : undefined}
+                  onMouseLeave={hasChildren ? handleMouseLeave : undefined}
                 >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-nav-indicator"
-                      className="absolute bottom-0 left-3 right-3 h-[3px] bg-accent rounded-t-sm"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "relative px-4 py-2 text-sm font-bold transition-colors uppercase tracking-tighter hover:text-accent inline-flex items-center gap-1",
+                      isActive ? "text-accent" : "text-primary/70"
+                    )}
+                  >
+                    {link.label}
+                    {hasChildren && (
+                      <ChevronDown className={cn(
+                        "size-3.5 transition-transform duration-200",
+                        openDropdown === link.label ? "rotate-180" : ""
+                      )} />
+                    )}
+                    {isActive && (
+                      <motion.div
+                        layoutId="active-nav-indicator"
+                        className="absolute bottom-0 left-3 right-3 h-[3px] bg-accent rounded-t-sm"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {hasChildren && openDropdown === link.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
+                      >
+                        <div className="bg-white rounded-2xl shadow-xl border border-border/60 overflow-hidden min-w-[280px]">
+                          <div className="p-2">
+                            {link.children!.map((child) => {
+                              const ChildIcon = child.icon;
+                              const isChildActive = pathname === child.href;
+                              return (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  className={cn(
+                                    "flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 group/item",
+                                    isChildActive
+                                      ? "bg-accent/10 text-accent"
+                                      : "hover:bg-secondary/50 text-primary/70 hover:text-primary"
+                                  )}
+                                  onClick={() => setOpenDropdown(null)}
+                                >
+                                  <div className={cn(
+                                    "size-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-200",
+                                    isChildActive
+                                      ? "bg-accent/20 text-accent"
+                                      : "bg-secondary text-muted-foreground group-hover/item:bg-accent/10 group-hover/item:text-accent"
+                                  )}>
+                                    <ChildIcon className="size-5" />
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-bold tracking-tight">{child.label}</p>
+                                    <p className="text-[11px] text-muted-foreground mt-0.5">{child.description}</p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               );
             })}
           </nav>
@@ -170,19 +272,59 @@ export function Navbar() {
                 <SheetTitle className="font-serif text-xl text-primary">Menu</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 pt-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "px-4 py-3 text-base font-bold rounded-xl transition-colors uppercase tracking-tight",
-                      pathname === link.href ? "text-accent bg-secondary/30" : "text-primary/70 hover:bg-secondary/20"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const hasChildren = link.children && link.children.length > 0;
+
+                  if (hasChildren) {
+                    return (
+                      <div key={link.href} className="space-y-1">
+                        <Link
+                          href={link.href}
+                          onClick={() => setOpen(false)}
+                          className={cn(
+                            "px-4 py-3 text-base font-bold rounded-xl transition-colors uppercase tracking-tight block",
+                            pathname.startsWith(link.href) ? "text-accent bg-secondary/30" : "text-primary/70 hover:bg-secondary/20"
+                          )}
+                        >
+                          {link.label}
+                        </Link>
+                        <div className="pl-4 space-y-0.5">
+                          {link.children!.map((child) => {
+                            const ChildIcon = child.icon;
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={() => setOpen(false)}
+                                className={cn(
+                                  "flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors text-sm font-semibold",
+                                  pathname === child.href ? "text-accent bg-accent/10" : "text-primary/60 hover:bg-secondary/20 hover:text-primary"
+                                )}
+                              >
+                                <ChildIcon className="size-4" />
+                                {child.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "px-4 py-3 text-base font-bold rounded-xl transition-colors uppercase tracking-tight",
+                        pathname === link.href ? "text-accent bg-secondary/30" : "text-primary/70 hover:bg-secondary/20"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </nav>
             </SheetContent>
           </Sheet>

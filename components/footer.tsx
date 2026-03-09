@@ -7,7 +7,8 @@ const footerLinks = {
   navigation: [
     { href: "/", label: "Accueil" },
     { href: "/a-propos", label: "A Propos" },
-    { href: "/galerie", label: "Galerie" },
+    { href: "/galerie/photos", label: "Nos Photos" },
+    { href: "/galerie/videos", label: "Nos Vidéos" },
     { href: "/articles", label: "Articles" },
   ],
   ressources: [

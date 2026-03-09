@@ -1,6 +1,6 @@
 "use client"
 
-import { Search, Loader2, X, ArrowRight, FileText, Image as ImageIcon, Calendar } from "lucide-react"
+import { Search, Loader2, X, ArrowRight, FileText, Image as ImageIcon, Play, Calendar } from "lucide-react"
 import { useState, useEffect, useRef, useTransition } from "react"
 import { globalSearch } from "@/lib/actions/search"
 import Link from "next/link"
@@ -104,6 +104,7 @@ export function AdminSearch() {
                                         <div className="size-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-accent-foreground transition-all">
                                             {res.type === 'Article' && <FileText className="size-5" />}
                                             {res.type === 'Galerie' && <ImageIcon className="size-5" />}
+                                            {res.type === 'Vidéo' && <Play className="size-5" />}
                                         </div>
                                         <div>
                                             <h4 className="text-sm font-bold text-primary">{res.title}</h4>

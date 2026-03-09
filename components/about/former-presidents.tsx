@@ -19,9 +19,9 @@ const formerPresidents = [
         image: "/images/mbaye_bougouma.jpg",
     },
     {
-        name: "Mme Marianne Diouf",
+        name: "Mme Marie Anne Yandé DIOUF",
         tenure: "Déc. 2023 — Mars 2024",
-        image: "/images/about.jpg",
+        image: "/images/marie_anne_diouf.jpg",
     },
 ]
 
@@ -54,7 +54,7 @@ export function FormerPresidents() {
                                         src={president.image}
                                         alt={president.name}
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />

@@ -42,6 +42,7 @@ export default async function AdminLayout({
                     <AdminNavLink href="/admin" icon={LayoutDashboard} label="Tableau de bord" />
                     <AdminNavLink href="/admin/activites" icon={FileText} label="Articles" />
                     <AdminNavLink href="/admin/galeries" icon={ImageIcon} label="Galeries" />
+                    <AdminNavLink href="/admin/agenda" icon={Calendar} label="Agenda" />
                     <AdminNavLink href="/admin/messages" icon={MessageSquare} label="Messages" badge={unreadCount} />
 
                     <div className="pt-10 pb-3">
