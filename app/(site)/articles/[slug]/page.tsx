@@ -8,7 +8,7 @@ import Link from "next/link"
 import { SenegalStripe } from "@/components/senegal-stripe"
 import { ShareButton } from "@/components/share-button"
 
-export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params
     const activity = await prisma.activity.findUnique({
         where: { slug },

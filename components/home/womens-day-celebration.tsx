@@ -97,7 +97,7 @@ export function WomensDayCelebration() {
         const mobile = window.innerWidth < 768
         setIsMobile(mobile)
 
-        if (year === 2026 && month === 2 && day >= 7 && day <= 9) {
+        if (year === 2026 && month === 2 && (day >= 7 && day <= 14)) {
             setIsVisible(true)
             // Fewer particles on mobile for performance and cleanliness
             setParticles(generateParticles(mobile ? 18 : 50))
@@ -186,11 +186,11 @@ export function WomensDayCelebration() {
                                 </motion.div>
 
                                 <div className="text-center min-w-0">
-                                    <p className="text-white font-serif text-[13px] sm:text-lg md:text-xl font-bold tracking-wide drop-shadow-sm leading-snug">
-                                        🌸 Bonne Journée des Droits des Femmes ! 🌸
+                                    <p className="text-white font-serif text-[13px] sm:text-lg md:text-xl font-bold tracking-wide drop-shadow-sm leading-snug uppercase">
+                                        ✨ COMMÉMORATION de la Journée de la femme ✨
                                     </p>
                                     <p className="text-white/90 text-[10px] sm:text-xs md:text-sm mt-0.5 font-medium leading-tight">
-                                        8 Mars 2026 — L&apos;Amicale célèbre la force de toutes les femmes 💪
+                                        Samedi 14 Mars 2026 à 11h00 — Hôtel Terrou-Bi
                                     </p>
                                 </div>
 

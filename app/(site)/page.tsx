@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/home/hero-section"
+import { EventBanner } from "@/components/home/event-banner"
 import { PresentationSection } from "@/components/home/presentation-section"
 import { ArticlesSection } from "@/components/home/articles-section"
 import { GalleryPreview } from "@/components/home/gallery-preview"
@@ -10,6 +11,7 @@ export default function HomePage() {
     <>
       <WomensDayCelebration />
       <HeroSection />
+      <EventBanner />
       <PresentationSection />
       <ArticlesSection />
       <GalleryPreview />

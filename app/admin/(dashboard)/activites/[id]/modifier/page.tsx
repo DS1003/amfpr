@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma"
 import { ArticleForm } from "@/components/admin/article-form"
 import { updateActivity } from "@/lib/actions/activity"
 
-export default async function ModifierArticlePage({ params }: { params: { id: string } }) {
+export default async function ModifierArticlePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
     const activity = await prisma.activity.findUnique({
         where: { id },

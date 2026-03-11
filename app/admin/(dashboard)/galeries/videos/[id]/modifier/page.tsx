@@ -3,7 +3,7 @@ import { updateVideo } from "@/lib/actions/video"
 import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 
-export default async function ModifierVideoPage({ params }: { params: { id: string } }) {
+export default async function ModifierVideoPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
     const video = await prisma.video.findUnique({
         where: { id },

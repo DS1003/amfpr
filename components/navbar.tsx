@@ -34,6 +34,7 @@ const navLinks: NavLink[] = [
     ],
   },
   { href: "/articles", label: "Articles" },
+  { href: "/agenda", label: "Agenda" },
   { href: "/contact", label: "Contact" },
 ]
 

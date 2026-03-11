@@ -6,14 +6,15 @@ import { EventForm } from "@/components/admin/event-form"
 import { updateEvent } from "@/lib/actions/event"
 
 interface EditEventPageProps {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export default async function EditEventPage({ params }: EditEventPageProps) {
+    const { id } = await params
     const event = await prisma.event.findUnique({
-        where: { id: params.id },
+        where: { id },
     })
 
     if (!event) {
