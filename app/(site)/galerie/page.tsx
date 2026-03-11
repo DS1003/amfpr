@@ -36,102 +36,78 @@ export default async function GaleriePage() {
             <section className="py-24 bg-white">
                 <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
                     {/* Hero Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                         {/* Photos Card */}
                         <Link href="/galerie/photos" className="group">
-                            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/95 to-primary/80 p-10 md:p-12 h-full min-h-[380px] flex flex-col justify-between shadow-xl border border-primary/20 transition-all duration-500 group-hover:shadow-2xl group-hover:scale-[1.02]">
-                                {/* Background Pattern */}
-                                <div className="absolute inset-0 opacity-[0.04]" style={{
-                                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                                }} />
+                            <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.02)] p-10 md:p-12 hover:shadow-[0_40px_100px_rgba(0,0,0,0.06)] hover:border-accent/20 transition-all duration-700 relative overflow-hidden">
+                                {/* Decorative subtle gradient in background */}
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] group-hover:bg-accent/10 transition-colors duration-700" />
 
-                                {/* Decorative Circle */}
-                                <div className="absolute -top-10 -right-10 size-40 rounded-full bg-accent/10 blur-2xl group-hover:bg-accent/20 transition-all duration-700" />
-                                <div className="absolute -bottom-16 -left-16 size-48 rounded-full bg-white/5 blur-2xl" />
-
-                                <div className="relative z-10 space-y-6">
-                                    <div className="flex items-center gap-4">
-                                        <div className="size-16 rounded-2xl bg-accent/20 backdrop-blur-sm flex items-center justify-center border border-accent/30 group-hover:bg-accent/30 transition-colors duration-300">
-                                            <Camera className="size-8 text-accent" />
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="flex items-center gap-5 mb-8">
+                                        <div className="size-16 rounded-2xl bg-secondary/80 flex items-center justify-center border border-border/40 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors duration-500 text-primary shadow-sm">
+                                            <ImageIcon className="size-7" />
                                         </div>
                                         <div>
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Collection</span>
-                                            <h3 className="font-serif text-3xl font-bold text-white tracking-tight">Nos Photos</h3>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">Collection</span>
+                                            <h3 className="font-serif text-3xl font-bold text-primary tracking-tight mt-1 group-hover:text-accent transition-colors duration-300">Nos Photos</h3>
                                         </div>
                                     </div>
 
-                                    <p className="text-white/70 leading-relaxed max-w-sm">
-                                        Parcourez nos albums photos et revivez les moments forts de nos activités en images haute qualité.
+                                    <p className="text-muted-foreground leading-relaxed font-medium mb-10 flex-1">
+                                        Parcourez nos albums et revivez les moments forts de nos activités en images haute qualité.
                                     </p>
 
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-[11px] font-bold uppercase tracking-wider text-white/50">
-                                            {galeries.length} album{galeries.length > 1 ? 's' : ''} • {totalPhotos} photo{totalPhotos > 1 ? 's' : ''}
-                                        </span>
+                                    <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-border/40">
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <span className="px-4 py-1.5 rounded-xl bg-secondary/50 border border-border/40 text-[10px] font-bold uppercase tracking-widest text-primary">
+                                                {galeries.length} {galeries.length > 1 ? 'albums' : 'album'}
+                                            </span>
+                                            {totalPhotos > 0 && (
+                                                <span className="px-4 py-1.5 rounded-xl bg-secondary/50 border border-border/40 text-[10px] font-bold uppercase tracking-widest text-primary">
+                                                    {totalPhotos} {totalPhotos > 1 ? 'photos' : 'photo'}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="size-12 shrink-0 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                                            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div className="relative z-10 mt-8">
-                                    <span className="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-accent group-hover:gap-5 transition-all duration-300">
-                                        Voir les photos
-                                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                                    </span>
-                                </div>
-
-                                {/* Preview thumbnails strip */}
-                                {galeries.length > 0 && (
-                                    <div className="absolute bottom-0 right-0 flex opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-                                        {galeries.slice(0, 3).map((g) => (
-                                            g.coverImage && (
-                                                <div key={g.id} className="w-24 h-32 overflow-hidden">
-                                                    <img src={g.coverImage} alt="" className="w-full h-full object-cover" />
-                                                </div>
-                                            )
-                                        ))}
-                                    </div>
-                                )}
                             </div>
                         </Link>
 
                         {/* Videos Card */}
                         <Link href="/galerie/videos" className="group">
-                            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] p-10 md:p-12 h-full min-h-[380px] flex flex-col justify-between shadow-xl border border-white/5 transition-all duration-500 group-hover:shadow-2xl group-hover:scale-[1.02]">
-                                {/* Background Pattern */}
-                                <div className="absolute inset-0 opacity-[0.03]" style={{
-                                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M0 0h80v80H0V0zm20 20v40h40V20H20zm20 35a15 15 0 1 0 0-30 15 15 0 0 0 0 30z' opacity='.5'/%3E%3C/g%3E%3C/svg%3E")`,
-                                }} />
+                            <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.02)] p-10 md:p-12 hover:shadow-[0_40px_100px_rgba(0,0,0,0.06)] hover:border-red-500/20 transition-all duration-700 relative overflow-hidden">
+                                {/* Decorative subtle gradient in background */}
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-[80px] group-hover:bg-red-500/10 transition-colors duration-700" />
 
-                                {/* Decorative Circle */}
-                                <div className="absolute -top-10 -right-10 size-40 rounded-full bg-red-500/10 blur-2xl group-hover:bg-red-500/20 transition-all duration-700" />
-                                <div className="absolute -bottom-16 -left-16 size-48 rounded-full bg-white/5 blur-2xl" />
-
-                                <div className="relative z-10 space-y-6">
-                                    <div className="flex items-center gap-4">
-                                        <div className="size-16 rounded-2xl bg-red-500/20 backdrop-blur-sm flex items-center justify-center border border-red-500/30 group-hover:bg-red-500/30 transition-colors duration-300">
-                                            <Play className="size-8 text-red-400 fill-red-400" />
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="flex items-center gap-5 mb-8">
+                                        <div className="size-16 rounded-2xl bg-secondary/80 flex items-center justify-center border border-border/40 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500 transition-colors duration-500 text-red-500 shadow-sm">
+                                            <Play className="size-7 ml-1 fill-current" />
                                         </div>
                                         <div>
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-400">YouTube</span>
-                                            <h3 className="font-serif text-3xl font-bold text-white tracking-tight">Nos Vidéos</h3>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-red-500">YouTube</span>
+                                            <h3 className="font-serif text-3xl font-bold text-primary tracking-tight mt-1 group-hover:text-red-500 transition-colors duration-300">Nos Vidéos</h3>
                                         </div>
                                     </div>
 
-                                    <p className="text-white/60 leading-relaxed max-w-sm">
+                                    <p className="text-muted-foreground leading-relaxed font-medium mb-10 flex-1">
                                         Regardez nos vidéos YouTube couvrant nos cérémonies, activités et moments importants de l'Amicale.
                                     </p>
 
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-[11px] font-bold uppercase tracking-wider text-white/40">
-                                            {videos.length} vidéo{videos.length > 1 ? 's' : ''}
-                                        </span>
+                                    <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-border/40">
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <span className="px-4 py-1.5 rounded-xl bg-red-500/5 border border-red-500/10 text-[10px] font-bold uppercase tracking-widest text-red-600">
+                                                {videos.length} {videos.length > 1 ? 'vidéos' : 'vidéo'}
+                                            </span>
+                                        </div>
+                                        <div className="size-12 shrink-0 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-red-500 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                                            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="relative z-10 mt-8">
-                                    <span className="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-red-400 group-hover:gap-5 transition-all duration-300">
-                                        Voir les vidéos
-                                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                                    </span>
                                 </div>
                             </div>
                         </Link>

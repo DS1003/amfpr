@@ -12,6 +12,7 @@ export async function createGallery(formData: FormData) {
 
     const photosJson = formData.get('photos') as string
     const photos = photosJson ? JSON.parse(photosJson) : []
+    const createdAtStr = formData.get('createdAt') as string
 
     const gallery = await prisma.gallery.create({
         data: {
@@ -19,6 +20,7 @@ export async function createGallery(formData: FormData) {
             description,
             coverImage,
             published,
+            ...(createdAtStr && { createdAt: new Date(createdAtStr) }),
             photos: {
                 create: photos.map((url: string) => ({ url }))
             }
@@ -38,6 +40,7 @@ export async function updateGallery(id: string, formData: FormData) {
 
     const photosJson = formData.get('photos') as string
     const newPhotos = photosJson ? JSON.parse(photosJson) : []
+    const createdAtStr = formData.get('createdAt') as string
 
     // We will delete all old photos and insert new ones to keep it simple
     // A more complex approach would be to calculate diffs.
@@ -51,6 +54,7 @@ export async function updateGallery(id: string, formData: FormData) {
                 description,
                 coverImage,
                 published,
+                ...(createdAtStr && { createdAt: new Date(createdAtStr) }),
                 photos: {
                     create: newPhotos.map((url: string) => ({ url }))
                 }

@@ -4,6 +4,8 @@ import { Presentation } from "@/components/about/presentation"
 import { MissionsActions } from "@/components/about/missions-actions"
 import { Governance } from "@/components/about/governance"
 import { PresidentWord } from "@/components/about/president-word"
+import { TeamSection } from "@/components/about/team-section"
+import { SteeringCommittee } from "@/components/about/steering-committee"
 import { FormerPresidents } from "@/components/about/former-presidents"
 
 export const metadata: Metadata = {
@@ -24,6 +26,8 @@ export default function AboutPage() {
       <MissionsActions />
       <Governance />
       <PresidentWord />
+      <TeamSection />
+      <SteeringCommittee />
       <FormerPresidents />
     </>
   )

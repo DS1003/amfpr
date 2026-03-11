@@ -4,47 +4,42 @@ import { MotionWrapper } from "@/components/motion-wrapper"
 
 const teamMembers = [
   {
-    name: "Mme Aminata Diallo",
-    role: "Présidente",
-    image: "/images/hero.jpg",
+    name: "Mme Ndiaye Mame Jacques SECK",
+    role: "Présidente de l'Amicale",
+    image: "/images/mame_jacques_seck.jpg",
   },
   {
-    name: "Mme Fatou Ndiaye",
-    role: "Vice-Présidente",
-    image: "/images/about.jpg",
-  },
-  {
-    name: "Mme Aïssatou Bâ",
+    name: "Fatoumata Ly BA",
     role: "Secrétaire Générale",
-    image: "/images/education.jpg",
+    image: "/images/fatoumata_ly_ba.jpg",
   },
   {
-    name: "Mme Mariama Camara",
-    role: "Trésorière",
-    image: "/images/health.jpg",
+    name: "Mme Bintou Malick GUÈYE",
+    role: "Secrétaire Générale Adjointe",
+    image: "/images/bintou_malick_gueye.jpg",
   },
   {
-    name: "Mme Oumou Sow",
-    role: "Chargée de Communication",
-    image: "/images/partnership.jpg",
+    name: "Mame Awa DIOP",
+    role: "Trésorière Générale",
+    image: "/images/mame_awa_diop.jpg",
   },
-  {
-    name: "Mme Kadiatou Touré",
-    role: "Responsable des Programmes",
-    image: "/images/activities.jpg",
-  },
+  // {
+  //   name: "Fatma Guèye THIAM",
+  //   role: "Trésorière Adjointe",
+  //   image: "/placeholder-user.jpg",
+  // },
 ]
 
 export function TeamSection() {
   return (
-    <SectionWrapper>
+    <SectionWrapper className="pb-4 sm:pb-8">
       <MotionWrapper>
         <div className="text-center mb-16">
           <span className="inline-block mb-4 text-xs font-medium tracking-widest uppercase text-accent">
             Bureau exécutif
           </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl text-balance">
-            {"Notre équipe dirigeante"}
+            {"Les membres du bureau"}
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-base text-muted-foreground leading-relaxed">
             {
@@ -54,7 +49,7 @@ export function TeamSection() {
         </div>
       </MotionWrapper>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {teamMembers.map((member, index) => (
           <MotionWrapper key={member.name} delay={index * 100}>
             <div className="group text-center">

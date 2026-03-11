@@ -68,16 +68,16 @@ export function EventBanner() {
                     </div>
 
                     {/* Right Image/Visual */}
-                    <div className="w-full md:w-[45%] lg:w-[40%] bg-primary relative min-h-[300px] md:min-h-full overflow-hidden">
+                    <div className="w-full md:w-[45%] lg:w-[40%] bg-black relative min-h-[300px] md:min-h-full overflow-hidden">
                         {/* If we had the image, we would use it here. For now, a stylized placeholder with the group photo if available */}
                         <Image
                             src="/images/hero-group.jpg"
                             alt="Commémoration Journée de la femme"
                             fill
-                            className="object-cover opacity-80 mix-blend-overlay hover:scale-105 transition-transform duration-700"
+                            className="object-cover hover:scale-105 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/5 to-transparent md:block hidden" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent md:hidden block" />
+                        {/* <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent md:block hidden" /> */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
                         <div className="absolute bottom-8 left-8 right-8 text-white z-20">
                             <p className="font-serif italic text-2xl font-bold leading-tight">

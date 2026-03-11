@@ -40,7 +40,7 @@ const itemVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: [0.16, 1, 0.3, 1]
+            ease: [0.16, 1, 0.3, 1] as const
         }
     }
 }
@@ -127,62 +127,61 @@ export function GalleryClient({ galeries }: { galeries: Gallery[] }) {
                                 key={gallery.id}
                                 variants={itemVariants}
                                 whileHover={{ y: -8 }}
-                                className="group cursor-pointer"
+                                className="group cursor-pointer flex flex-col h-full bg-white rounded-[2.5rem] border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-700 hover:shadow-[0_40px_100px_rgba(0,0,0,0.06)] hover:border-accent/20"
                                 onClick={() => setActiveGalleryId(gallery.id)}
                             >
-                                <div className="relative aspect-[4/5] sm:aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-secondary shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-border/40 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] group-hover:border-primary/10 transition-all duration-700 ease-[0.16,1,0.3,1]">
-                                    {/* Cover Image */}
+                                {/* Image Box */}
+                                <div className="relative aspect-[4/3] w-full overflow-hidden shrink-0">
                                     {gallery.coverImage || gallery.photos[0]?.url ? (
                                         <img
                                             src={gallery.coverImage || gallery.photos[0]?.url}
                                             alt={gallery.title}
-                                            className="w-full h-full object-cover transition-all duration-[1s] ease-[0.16,1,0.3,1] group-hover:scale-110 group-hover:brightness-[1.02]"
+                                            className="w-full h-full object-cover transition-all duration-[1s] ease-[0.16,1,0.3,1] group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="flex items-center justify-center h-full bg-muted">
+                                        <div className="flex items-center justify-center w-full h-full bg-secondary">
                                             <ImageIcon className="size-16 text-muted-foreground/20" />
                                         </div>
                                     )}
+                                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-700 ring-1 ring-inset ring-black/5" />
+                                </div>
 
-                                    {/* Elegant Overlay - Minimalist approach */}
-                                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 transition-opacity duration-700 group-hover:opacity-90" />
-                                    <div className="absolute inset-0 ring-1 ring-inset ring-black/5 group-hover:ring-black/0 transition-all duration-700" />
+                                {/* Content Box */}
+                                <div className="p-8 md:p-10 flex flex-col flex-1 relative bg-white">
+                                    {/* Decorative subtle gradient */}
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full blur-[60px] group-hover:bg-accent/10 transition-colors duration-700 pointer-events-none" />
 
-                                    {/* Badge for Photo Count - Floating Glassmorphism */}
-                                    <div className="absolute top-6 right-6">
-                                        <div className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-4 py-1.5 rounded-full flex items-center gap-2 shadow-xl shadow-black/5 group-hover:bg-white/20 transition-colors duration-500">
-                                            <ImageIcon className="size-3.5" />
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-                                                {gallery.photos.length} photos
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Content inside card */}
-                                    <div className="absolute inset-x-0 bottom-0 p-10 flex flex-col justify-end min-h-[50%]">
-                                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1]">
-                                            <div className="flex items-center gap-3 mb-3 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
-                                                <div className="h-px w-6 bg-white" />
-                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                                    <div className="relative z-10 flex flex-col flex-1 h-full">
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="flex items-center gap-2">
+                                                <Calendar className="size-3.5 text-accent" />
+                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/70">
                                                     {new Date(gallery.createdAt).toLocaleDateString('fr-FR', {
                                                         month: 'long',
                                                         year: 'numeric'
                                                     })}
                                                 </span>
                                             </div>
-                                            <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-3 leading-tight tracking-tight drop-shadow-sm transition-all duration-700">
-                                                {gallery.title}
-                                            </h3>
+                                            <div className="h-px flex-1 bg-border/40" />
+                                            <span className="px-3 py-1.5 rounded-xl bg-secondary/80 border border-border/40 text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-1.5 shadow-sm group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                                                {gallery.photos.length} {gallery.photos.length > 1 ? 'photos' : 'photo'}
+                                            </span>
+                                        </div>
 
-                                            <div className="overflow-hidden">
-                                                <div className="text-white/70 text-sm leading-relaxed max-w-[90%] opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto group-hover:mb-4 transition-all duration-700 delay-100 line-clamp-2">
-                                                    {gallery.description || "Découvrez cet album en images."}
-                                                </div>
-                                            </div>
+                                        <h3 className="font-serif text-2xl font-bold text-primary mb-4 leading-tight tracking-tight group-hover:text-accent transition-colors duration-300">
+                                            {gallery.title}
+                                        </h3>
 
-                                            <div className="pt-2 flex items-center gap-2 text-white/40 text-[10px] uppercase font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
-                                                <span>Explorer l&apos;album</span>
-                                                <ChevronRight className="size-3 transition-transform group-hover:translate-x-1" />
+                                        <p className="text-muted-foreground leading-relaxed font-medium mb-8 line-clamp-2">
+                                            {gallery.description || "Découvrez cet album en images."}
+                                        </p>
+
+                                        <div className="flex items-center justify-between pt-6 border-t border-border/40 mt-auto">
+                                            <span className="text-[11px] font-bold uppercase tracking-widest text-primary/60 group-hover:text-primary transition-colors duration-300">
+                                                Explorer l&apos;album
+                                            </span>
+                                            <div className="size-10 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white transition-all duration-300 group-hover:scale-110 shadow-sm">
+                                                <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
                                             </div>
                                         </div>
                                     </div>

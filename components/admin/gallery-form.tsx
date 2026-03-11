@@ -19,6 +19,7 @@ interface GalleryFormProps {
         description?: string | null
         coverImage?: string | null
         published: boolean
+        createdAt?: Date | string
         photos: { id: string; url: string; caption?: string | null }[]
     }
     action: (formData: FormData) => Promise<void>
@@ -133,6 +134,22 @@ export function GalleryForm({ initialData, action }: GalleryFormProps) {
                                     placeholder="Résumé bref de la galerie..."
                                     className="rounded-xl border-border resize-none"
                                     rows={4}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="createdAt" className="text-sm font-bold text-primary">Date de l'événement (Date de création de l'album)</Label>
+                                <Input
+                                    id="createdAt"
+                                    name="createdAt"
+                                    type="date"
+                                    defaultValue={
+                                        initialData?.createdAt
+                                            ? new Date(initialData.createdAt).toISOString().split('T')[0]
+                                            : new Date().toISOString().split('T')[0]
+                                    }
+                                    required
+                                    className="rounded-xl border-border h-12"
                                 />
                             </div>
 
