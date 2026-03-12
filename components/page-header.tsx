@@ -1,15 +1,17 @@
 import { MotionWrapper } from "@/components/motion-wrapper"
 import { SenegalStripe } from "@/components/senegal-stripe"
+import { cn } from "@/lib/utils"
 
 interface PageHeaderProps {
   title: string
   description: string
   badge?: string
+  className?: string
 }
 
-export function PageHeader({ title, description, badge }: PageHeaderProps) {
+export function PageHeader({ title, description, badge, className }: PageHeaderProps) {
   return (
-    <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 bg-secondary overflow-hidden">
+    <section className={cn("relative pt-32 pb-16 lg:pt-40 lg:pb-20 bg-secondary overflow-hidden", className)}>
       {/* Subtle dot pattern */}
       <div
         className="absolute inset-0 opacity-[0.025]"
