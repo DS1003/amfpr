@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+export const dynamic = "force-dynamic"
 import Image from "next/image"
 import { PageHeader } from "@/components/page-header"
 import { SectionWrapper } from "@/components/section-wrapper"
@@ -107,7 +108,7 @@ export default async function NewsPage() {
           {articles.map((article, index) => (
             <MotionWrapper key={article.title} delay={index * 100}>
               <article className="group overflow-hidden rounded-2xl bg-card border border-border hover:shadow-lg transition-all duration-500 hover:-translate-y-1 h-full flex flex-col">
-                <Link href={`/activites/${article.slug}`} className="flex-1 flex flex-col">
+                <Link href={`/articles/${article.slug}`} className="flex-1 flex flex-col">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={article.image}

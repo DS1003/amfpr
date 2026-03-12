@@ -65,7 +65,7 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
                 <MotionWrapper>
                     <div className="relative aspect-[21/7] min-h-[300px] rounded-[2.5rem] overflow-hidden group shadow-2xl bg-primary/5 border border-border/40">
                         <Image
-                            src="/images/8-mars.jpg"
+                            src="/images/groupe-amicale.jpg"
                             alt="8 Mars - Amicale des Femmes"
                             fill
                             className="object-cover transition-transform duration-[2s] group-hover:scale-105"

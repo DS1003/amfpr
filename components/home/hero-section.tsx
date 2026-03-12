@@ -57,7 +57,7 @@ export function HeroSection() {
           {/* Image Column */}
           <div className="w-full lg:w-[55%] relative min-h-[280px] sm:min-h-[400px] lg:min-h-full order-1 lg:order-2">
             <Image
-              src="/images/hero-group.jpg"
+              src="/images/groupe-amicale.jpg"
               alt="Membres de l'Amicale des Femmes de la Présidence de la République"
               fill
               className="object-cover object-top"

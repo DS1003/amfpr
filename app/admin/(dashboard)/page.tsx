@@ -1,15 +1,28 @@
-import { Calendar, FileText, MessageSquare, Users, ArrowUpRight, Plus, Rocket, TrendingUp, Sparkles, Image as ImageIcon, MapPin, Clock, ArrowRight } from "lucide-react"
+import { Calendar, FileText, MessageSquare, Plus, Rocket, Sparkles, Image as ImageIcon, MapPin, Clock, ArrowRight, BookOpen, Video } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
 import { DashboardCharts } from "@/components/admin/dashboard-charts"
 
 export default async function AdminDashboard() {
-    const [articleCount, messageCount, eventCount, galleryCount, unreadMessages, recentActivities, upcomingEvents] = await Promise.all([
+    const [
+        articleCount, 
+        messageCount, 
+        eventCount, 
+        galleryCount, 
+        videoCount,
+        publicationCount,
+        unreadMessages, 
+        recentActivities, 
+        upcomingEvents,
+        allActivities
+    ] = await Promise.all([
         prisma.activity.count(),
         prisma.contactMessage.count(),
         prisma.event.count(),
         prisma.gallery.count(),
+        prisma.video.count(),
+        prisma.publication.count(),
         prisma.contactMessage.count({ where: { read: false } }),
         prisma.activity.findMany({
             orderBy: { createdAt: 'desc' },
@@ -19,24 +32,43 @@ export default async function AdminDashboard() {
             where: { date: { gte: new Date() } },
             orderBy: { date: 'asc' },
             take: 3
+        }),
+        prisma.activity.findMany({
+            select: { createdAt: true },
+            where: {
+                createdAt: {
+                    gte: new Date(new Date().setMonth(new Date().getMonth() - 6))
+                }
+            }
         })
     ])
 
-    // Mock data for charts (in a real app, we would aggregate this from Prisma)
-    const articleStats = [
-        { name: 'Sep', value: 4 },
-        { name: 'Oct', value: 7 },
-        { name: 'Nov', value: 5 },
-        { name: 'Dec', value: 12 },
-        { name: 'Jan', value: 8 },
-        { name: 'Fev', value: 15 },
-        { name: 'Mar', value: articleCount },
-    ]
+    // Generate real monthly statistics from database
+    const months = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec']
+    const last7Months = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date()
+        d.setMonth(d.getMonth() - (6 - i))
+        return {
+            month: d.getMonth(),
+            year: d.getFullYear(),
+            name: months[d.getMonth()]
+        }
+    })
+
+    const articleStats = last7Months.map(m => ({
+        name: m.name,
+        value: allActivities.filter(a => 
+            a.createdAt.getMonth() === m.month && 
+            a.createdAt.getFullYear() === m.year
+        ).length
+    }))
 
     const distribution = [
         { name: 'Articles', value: articleCount },
         { name: 'Événements', value: eventCount },
         { name: 'Galeries', value: galleryCount },
+        { name: 'Vidéos', value: videoCount },
+        { name: 'Publications', value: publicationCount }
     ]
 
     return (
@@ -71,14 +103,14 @@ export default async function AdminDashboard() {
 
             {/* Stats Grid - Premium look */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatsCard icon={FileText} label="Articles" value={articleCount.toString()} growth="Total publiés" />
+                <StatsCard icon={FileText} label="Articles" value={articleCount.toString()} growth="Contenu publié" />
                 <StatsCard icon={MessageSquare} label="Messages" value={messageCount.toString()} growth={`${unreadMessages} non lus`} color="accent" />
-                <StatsCard icon={Calendar} label="Événements" value={eventCount.toString()} growth="Planifiés" />
-                <StatsCard icon={ImageIcon} label="Galeries" value={galleryCount.toString()} growth="Dossiers média" />
+                <StatsCard icon={Calendar} label="Événements" value={eventCount.toString()} growth="Agenda planifié" />
+                <StatsCard icon={ImageIcon} label="Galeries" value={galleryCount.toString()} growth="Albums photos" />
             </div>
 
             {/* Charts Section */}
-            <DashboardCharts articleStats={articleStats} distribution={distribution} />
+            <DashboardCharts articleStats={articleStats} distribution={distribution.filter(d => d.value > 0)} />
 
             {/* Content & Agenda Section */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -108,7 +140,7 @@ export default async function AdminDashboard() {
                                 recentActivities.map((act) => (
                                     <Link 
                                         key={act.id} 
-                                        href={`/admin/activites/${act.id}`}
+                                        href={`/admin/activites/${act.id}/modifier`}
                                         className="group p-5 rounded-3xl bg-secondary/20 border border-transparent hover:border-accent/30 hover:bg-white hover:shadow-xl hover:shadow-primary/5 transition-all duration-500"
                                     >
                                         <div className="flex items-start gap-4">
@@ -148,21 +180,23 @@ export default async function AdminDashboard() {
                             <div className="space-y-5">
                                 {upcomingEvents.length > 0 ? (
                                     upcomingEvents.map((event) => (
-                                        <div key={event.id} className="bg-white/5 backdrop-blur-md p-5 rounded-3xl border border-white/10 hover:bg-white hover:border-accent hover:shadow-2xl transition-all duration-700 group/item">
-                                            <div className="flex items-start gap-4">
-                                                <div className="size-10 rounded-2xl bg-accent flex flex-col items-center justify-center shrink-0 shadow-lg shadow-accent/20 group-hover/item:scale-110 transition-transform">
-                                                    <span className="text-white text-xs font-black leading-tight">{new Date(event.date).getDate()}</span>
-                                                    <span className="text-white text-[8px] font-black uppercase tracking-widest opacity-80">{new Date(event.date).toLocaleDateString('fr-FR', { month: 'short' })}</span>
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-bold text-white group-hover/item:text-primary transition-colors line-clamp-1">{event.title}</p>
-                                                    <div className="flex items-center gap-3 mt-2 text-[9px] text-white/40 group-hover/item:text-primary/40 font-black uppercase tracking-widest">
-                                                        <span className="flex items-center gap-1"><Clock className="size-3 text-accent" /> {new Date(event.date).getHours()}h00</span>
-                                                        <span className="flex items-center gap-1 truncate"><MapPin className="size-3 text-accent" /> {event.location || 'Dakar'}</span>
+                                        <Link key={event.id} href={`/admin/agenda/${event.id}/modifier`} className="block">
+                                            <div className="bg-white/5 backdrop-blur-md p-5 rounded-3xl border border-white/10 hover:bg-white hover:border-accent hover:shadow-2xl transition-all duration-700 group/item">
+                                                <div className="flex items-start gap-4">
+                                                    <div className="size-10 rounded-2xl bg-accent flex flex-col items-center justify-center shrink-0 shadow-lg shadow-accent/20 group-hover/item:scale-110 transition-transform">
+                                                        <span className="text-white text-xs font-black leading-tight">{new Date(event.date).getDate()}</span>
+                                                        <span className="text-white text-[8px] font-black uppercase tracking-widest opacity-80">{new Date(event.date).toLocaleDateString('fr-FR', { month: 'short' })}</span>
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-bold text-white group-hover/item:text-primary transition-colors line-clamp-1">{event.title}</p>
+                                                        <div className="flex items-center gap-3 mt-2 text-[9px] text-white/40 group-hover/item:text-primary/40 font-black uppercase tracking-widest">
+                                                            <span className="flex items-center gap-1"><Clock className="size-3 text-accent" /> {new Date(event.date).getHours()}h00</span>
+                                                            <span className="flex items-center gap-1 truncate"><MapPin className="size-3 text-accent" /> {event.location || 'Dakar'}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))
                                 ) : (
                                     <div className="py-12 flex flex-col items-center justify-center text-white/20">

@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/home/hero-section"
+export const dynamic = "force-dynamic"
 import { EventBanner } from "@/components/home/event-banner"
 import { PresentationSection } from "@/components/home/presentation-section"
 import { ArticlesSection } from "@/components/home/articles-section"

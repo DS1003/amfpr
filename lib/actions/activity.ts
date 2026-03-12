@@ -32,7 +32,8 @@ export async function createActivity(formData: FormData) {
     })
 
     revalidatePath('/')
-    revalidatePath('/activites')
+    revalidatePath('/articles')
+    revalidatePath('/actualites')
     revalidatePath('/admin/activites')
     redirect('/admin/activites')
 }
@@ -65,8 +66,9 @@ export async function updateActivity(id: string, formData: FormData) {
     })
 
     revalidatePath('/')
-    revalidatePath('/activites')
-    revalidatePath(`/activites/${slug}`)
+    revalidatePath('/articles')
+    revalidatePath(`/articles/${slug}`)
+    revalidatePath('/actualites')
     revalidatePath('/admin/activites')
     
     // Check if the form component expects a redirect or a result
@@ -79,7 +81,8 @@ export async function deleteActivity(id: string) {
         where: { id },
     })
     revalidatePath('/')
-    revalidatePath('/activites')
-    if (activity) revalidatePath(`/activites/${activity.slug}`)
+    revalidatePath('/articles')
+    if (activity) revalidatePath(`/articles/${activity.slug}`)
+    revalidatePath('/actualites')
     revalidatePath('/admin/activites')
 }
