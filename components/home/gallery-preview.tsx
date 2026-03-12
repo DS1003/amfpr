@@ -11,7 +11,7 @@ export async function GalleryPreview() {
   const galeries = await prisma.gallery.findMany({
     where: { published: true },
     include: { photos: true },
-    orderBy: { createdAt: "asc" },
+    orderBy: { createdAt: "desc" },
     take: 6,
   })
 
