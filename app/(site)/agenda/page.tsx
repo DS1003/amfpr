@@ -60,6 +60,35 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
                 className="pt-16 pb-8 lg:pt-20 lg:pb-10"
             />
 
+            {/* Special 8 Mars Hero */}
+            <SectionWrapper className="pb-8">
+                <MotionWrapper>
+                    <div className="relative aspect-[21/7] min-h-[300px] rounded-[2.5rem] overflow-hidden group shadow-2xl bg-primary/5 border border-border/40">
+                        <Image
+                            src="/images/8-mars.jpg"
+                            alt="8 Mars - Amicale des Femmes"
+                            fill
+                            className="object-cover transition-transform duration-[2s] group-hover:scale-105"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
+                        <div className="absolute bottom-8 left-8 right-8">
+                            <div className="flex items-center gap-3 mb-3">
+                                <span className="px-3 py-1 bg-accent text-white rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl shadow-accent/20">
+                                    Événement Spécial
+                                </span>
+                            </div>
+                            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">
+                                Commémoration du 8 Mars
+                            </h2>
+                            <p className="text-white/80 text-sm max-w-xl line-clamp-1 font-medium">
+                                Bonne fête à toutes les femmes de la Présidence de la République du Sénégal.
+                            </p>
+                        </div>
+                    </div>
+                </MotionWrapper>
+            </SectionWrapper>
+
             {/* Filter & Search Section */}
             <SectionWrapper className="py-0 relative z-20">
                 <div className="max-w-4xl mx-auto bg-white p-5 sm:p-6 rounded-[2rem] shadow-xl shadow-primary/5 border border-border/40 -mt-24">
