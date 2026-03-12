@@ -60,7 +60,7 @@ export function HeroSection() {
               src="/images/hero-group.jpg"
               alt="Membres de l'Amicale des Femmes de la Présidence de la République"
               fill
-              className="object-cover object-center"
+              className="object-cover object-top"
               priority
               sizes="(max-width: 1024px) 100vw, 60vw"
             />

@@ -67,6 +67,7 @@ model Activity {
   description String   @db.Text
   content     String?  @db.Text
   image       String?
+  videoUrl    String?
   date        DateTime @default(now())
   category    String
   published   Boolean  @default(false)

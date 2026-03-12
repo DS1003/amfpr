@@ -11,6 +11,7 @@ export async function createActivity(formData: FormData) {
     const category = formData.get('category') as string
     const dateStr = formData.get('date') as string
     const image = formData.get('image') as string
+    const videoUrl = formData.get('videoUrl') as string
     const content = formData.get('content') as string
     const published = formData.get('published') === 'true'
 
@@ -23,6 +24,7 @@ export async function createActivity(formData: FormData) {
             category,
             date: new Date(dateStr),
             image,
+            videoUrl,
             content,
             published,
             slug,
@@ -40,6 +42,7 @@ export async function updateActivity(id: string, formData: FormData) {
     const category = formData.get('category') as string
     const dateStr = formData.get('date') as string
     const image = formData.get('image') as string
+    const videoUrl = formData.get('videoUrl') as string
     const content = formData.get('content') as string
     const published = formData.get('published') === 'true'
 
@@ -53,6 +56,7 @@ export async function updateActivity(id: string, formData: FormData) {
             category,
             date: new Date(dateStr),
             image,
+            videoUrl,
             content,
             published,
             slug,

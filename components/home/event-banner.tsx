@@ -46,7 +46,7 @@ export function EventBanner() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Heure</p>
-                                    <p className="text-lg font-bold text-primary">11 Heures</p>
+                                    <p className="text-lg font-bold text-primary">17 Heures</p>
                                 </div>
                             </div>
 

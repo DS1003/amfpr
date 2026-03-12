@@ -65,7 +65,7 @@ export async function GalleryPreview() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/15 transition-all duration-700 ease-out" />

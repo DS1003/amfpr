@@ -100,8 +100,17 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                                 </p>
                             </div>
 
-                            {/* Featured Image */}
-                            {activity.image && (
+                            {/* Featured Media */}
+                            {activity.videoUrl ? (
+                                <div className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border border-border group">
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${activity.videoUrl.includes('v=') ? activity.videoUrl.split('v=')[1]?.split('&')[0] : activity.videoUrl.split('/').pop()?.split('?')[0]}`}
+                                        className="w-full h-full border-0"
+                                        allowFullScreen
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    />
+                                </div>
+                            ) : activity.image ? (
                                 <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden shadow-2xl border border-border group">
                                     <Image
                                         src={activity.image}
@@ -112,7 +121,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                                 </div>
-                            )}
+                            ) : null}
 
                             {/* Rich Content Area */}
                             <div className="article-body">

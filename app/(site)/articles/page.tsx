@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/page-header"
 import { SectionWrapper } from "@/components/section-wrapper"
 import { MotionWrapper } from "@/components/motion-wrapper"
 import { TestimonialsSlider } from "@/components/activities/testimonials-slider"
-import { CheckCircle, TrendingUp, Users, Heart, Calendar, ArrowRight, FileText } from "lucide-react"
+import { CheckCircle, TrendingUp, Users, Heart, Calendar, ArrowRight, FileText, PlayCircle } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Articles & Actualités",
@@ -89,13 +89,21 @@ export default async function ArticlesPage() {
               <MotionWrapper key={article.id} delay={index * 100}>
                 <article className="group h-full flex flex-col bg-white rounded-[2rem] border border-border/60 overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2">
                   <Link href={`/articles/${article.slug}`} className="flex-1 flex flex-col">
-                    <div className="relative aspect-[16/10] overflow-hidden">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
                       <Image
-                        src={article.image || "/images/activities.jpg"}
+                        src={article.image || (article.videoUrl ? `https://img.youtube.com/vi/${article.videoUrl.includes('v=') ? article.videoUrl.split('v=')[1]?.split('&')[0] : article.videoUrl.split('/').pop()?.split('?')[0]}/maxresdefault.jpg` : "/images/activities.jpg")}
                         alt={article.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
+                      {article.videoUrl && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="size-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/40 shadow-xl group-hover:scale-110 transition-transform">
+                            <PlayCircle className="size-6 fill-black/40" />
+                          </div>
+                        </div>
+                      )}
                       <div className="absolute top-6 left-6">
                         <span className="px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-primary text-[10px] font-black uppercase tracking-widest shadow-sm">
                           {article.category}

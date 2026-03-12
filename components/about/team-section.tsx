@@ -39,7 +39,7 @@ export function TeamSection() {
             Bureau exécutif
           </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl text-balance">
-            {"Les membres du bureau"}
+            {"Les présidentes de commission"}
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-base text-muted-foreground leading-relaxed">
             {

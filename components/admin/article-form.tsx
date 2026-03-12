@@ -18,7 +18,16 @@ import { toast } from "sonner"
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
 
 interface ArticleFormProps {
-    initialData?: any
+    initialData?: {
+        title?: string
+        description?: string
+        category?: string
+        date?: Date | string
+        image?: string | null
+        videoUrl?: string | null
+        content?: string | null
+        published?: boolean
+    }
     action: (formData: FormData) => Promise<void>
 }
 
@@ -29,6 +38,7 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
     const [isUploadingContent, setIsUploadingContent] = useState(false)
 
     const [bannerUrl, setBannerUrl] = useState(initialData?.image || "")
+    const [videoUrl, setVideoUrl] = useState(initialData?.videoUrl || "")
     const [content, setContent] = useState(initialData?.content || "")
     const [published, setPublished] = useState(initialData?.published || false)
 
@@ -86,6 +96,7 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
         setIsLoading(true)
         const formData = new FormData(e.currentTarget)
         formData.append('image', bannerUrl)
+        formData.append('videoUrl', videoUrl)
         formData.append('content', content)
         formData.append('published', published.toString())
 
@@ -191,54 +202,77 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
                 <div className="space-y-6">
                     <Card className="rounded-2xl border-border shadow-sm overflow-hidden text-primary">
                         <CardContent className="p-6 space-y-6">
-                            <div className="space-y-2">
-                                <Label className="text-sm font-bold text-primary">Image de mise en avant</Label>
+                            <div className="space-y-4">
+                                <Label className="text-sm font-bold text-primary">Média de mise en avant</Label>
                                 <div className="space-y-4">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="hidden"
-                                        ref={bannerInputRef}
-                                        onChange={handleBannerUpload}
-                                    />
+                                    <div className="space-y-2">
+                                        <Label className="text-xs text-muted-foreground font-bold uppercase tracking-widest">Type: Image</Label>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="hidden"
+                                            ref={bannerInputRef}
+                                            onChange={handleBannerUpload}
+                                        />
 
-                                    {bannerUrl ? (
-                                        <div className="relative aspect-video rounded-xl overflow-hidden border border-border group">
-                                            <img src={bannerUrl} alt="Banner Preview" className="size-full object-cover" />
-                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => bannerInputRef.current?.click()}
-                                                    className="bg-white text-primary p-2 rounded-full hover:scale-110 transition-transform"
-                                                >
-                                                    <ImageIcon className="size-4" />
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setBannerUrl("")}
-                                                    className="bg-red-500 text-white p-2 rounded-full hover:scale-110 transition-transform"
-                                                >
-                                                    <X className="size-4" />
-                                                </button>
+                                        {bannerUrl ? (
+                                            <div className="relative aspect-video rounded-xl overflow-hidden border border-border group">
+                                                <img src={bannerUrl} alt="Banner Preview" className="size-full object-cover" />
+                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => bannerInputRef.current?.click()}
+                                                        className="bg-white text-primary p-2 rounded-full hover:scale-110 transition-transform"
+                                                    >
+                                                        <ImageIcon className="size-4" />
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setBannerUrl("")}
+                                                        className="bg-red-500 text-white p-2 rounded-full hover:scale-110 transition-transform"
+                                                    >
+                                                        <X className="size-4" />
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            disabled={isUploadingBanner}
-                                            onClick={() => bannerInputRef.current?.click()}
-                                            className="w-full aspect-video border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-secondary transition-colors text-muted-foreground"
-                                        >
-                                            {isUploadingBanner ? (
-                                                <Loader2 className="size-8 animate-spin text-accent" />
-                                            ) : (
-                                                <>
-                                                    <Plus className="size-8 text-border" />
-                                                    <span className="text-xs font-bold uppercase tracking-wider">Télécharger l'image</span>
-                                                </>
-                                            )}
-                                        </button>
-                                    )}
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                disabled={isUploadingBanner}
+                                                onClick={() => bannerInputRef.current?.click()}
+                                                className="w-full aspect-video border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-secondary transition-colors text-muted-foreground"
+                                            >
+                                                {isUploadingBanner ? (
+                                                    <Loader2 className="size-8 animate-spin text-accent" />
+                                                ) : (
+                                                    <>
+                                                        <Plus className="size-8 text-border" />
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider">Télécharger l'image</span>
+                                                    </>
+                                                )}
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    <div className="space-y-2 pt-4 border-t border-border/40">
+                                        <Label className="text-xs text-muted-foreground font-bold uppercase tracking-widest">Type: Vidéo (YouTube)</Label>
+                                        <Input
+                                            type="url"
+                                            placeholder="https://youtu.be/..."
+                                            value={videoUrl}
+                                            onChange={(e) => setVideoUrl(e.target.value)}
+                                            className="rounded-xl border-border h-12 text-sm"
+                                        />
+                                        {videoUrl && (
+                                            <div className="mt-2 aspect-video rounded-xl overflow-hidden border border-border relative group">
+                                                <iframe
+                                                    src={`https://www.youtube.com/embed/${videoUrl.includes('v=') ? videoUrl.split('v=')[1]?.split('&')[0] : videoUrl.split('/').pop()?.split('?')[0]}`}
+                                                    className="w-full h-full"
+                                                    allowFullScreen
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
