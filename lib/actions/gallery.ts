@@ -14,7 +14,7 @@ export async function createGallery(formData: FormData) {
     const photos = photosJson ? JSON.parse(photosJson) : []
     const createdAtStr = formData.get('createdAt') as string
 
-    const gallery = await prisma.gallery.create({
+    await prisma.gallery.create({
         data: {
             title,
             description,
@@ -27,8 +27,10 @@ export async function createGallery(formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
+    revalidatePath('/galerie/photos')
+    revalidatePath('/admin/galeries')
     redirect('/admin/galeries')
 }
 
@@ -41,9 +43,6 @@ export async function updateGallery(id: string, formData: FormData) {
     const photosJson = formData.get('photos') as string
     const newPhotos = photosJson ? JSON.parse(photosJson) : []
     const createdAtStr = formData.get('createdAt') as string
-
-    // We will delete all old photos and insert new ones to keep it simple
-    // A more complex approach would be to calculate diffs.
 
     await prisma.$transaction([
         prisma.photo.deleteMany({ where: { galleryId: id } }),
@@ -62,15 +61,21 @@ export async function updateGallery(id: string, formData: FormData) {
         })
     ]);
 
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
-    redirect('/admin/galeries')
+    revalidatePath('/galerie/photos')
+    revalidatePath('/admin/galeries')
+    
+    // We return success to the client instead of redirecting because it's called via onSubmit
+    return { success: true }
 }
 
 export async function deleteGallery(id: string) {
     await prisma.gallery.delete({
         where: { id },
     })
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
+    revalidatePath('/galerie/photos')
+    revalidatePath('/admin/galeries')
 }

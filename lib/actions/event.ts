@@ -25,8 +25,9 @@ export async function createEvent(formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/agenda')
+    revalidatePath('/')
     revalidatePath('/agenda')
+    revalidatePath('/admin/agenda')
     redirect('/admin/agenda')
 }
 
@@ -52,17 +53,20 @@ export async function updateEvent(id: string, formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/agenda')
+    revalidatePath('/')
     revalidatePath('/agenda')
-    redirect('/admin/agenda')
+    revalidatePath('/admin/agenda')
+    
+    return { success: true }
 }
 
 export async function deleteEvent(id: string) {
     await prisma.event.delete({
         where: { id },
     })
-    revalidatePath('/admin/agenda')
+    revalidatePath('/')
     revalidatePath('/agenda')
+    revalidatePath('/admin/agenda')
 }
 
 export async function toggleEventPublish(id: string, published: boolean) {
@@ -70,6 +74,7 @@ export async function toggleEventPublish(id: string, published: boolean) {
         where: { id },
         data: { published },
     })
-    revalidatePath('/admin/agenda')
+    revalidatePath('/')
     revalidatePath('/agenda')
+    revalidatePath('/admin/agenda')
 }

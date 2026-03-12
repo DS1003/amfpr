@@ -21,9 +21,10 @@ export async function createVideo(formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
     revalidatePath('/galerie/videos')
+    revalidatePath('/admin/galeries')
     redirect('/admin/galeries/videos')
 }
 
@@ -45,17 +46,20 @@ export async function updateVideo(id: string, formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
     revalidatePath('/galerie/videos')
-    redirect('/admin/galeries/videos')
+    revalidatePath('/admin/galeries')
+    
+    return { success: true }
 }
 
 export async function deleteVideo(id: string) {
     await prisma.video.delete({
         where: { id },
     })
-    revalidatePath('/admin/galeries')
+    revalidatePath('/')
     revalidatePath('/galerie')
     revalidatePath('/galerie/videos')
+    revalidatePath('/admin/galeries')
 }

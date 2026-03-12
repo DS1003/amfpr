@@ -98,6 +98,8 @@ export function GalleryForm({ initialData, action }: GalleryFormProps) {
         try {
             await action(formData)
             toast.success("Galerie enregistrée")
+            router.push('/admin/galeries')
+            router.refresh()
         } catch (error) {
             console.error(error)
             toast.error("Erreur d'enregistrement")

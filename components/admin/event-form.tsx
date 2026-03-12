@@ -64,6 +64,8 @@ export function EventForm({ initialData, action }: EventFormProps) {
         try {
             await action(formData)
             toast.success("Événement enregistré")
+            router.push('/admin/agenda')
+            router.refresh()
         } catch (error) {
             console.error(error)
             toast.error("Erreur lors de l'enregistrement")

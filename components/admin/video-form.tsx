@@ -58,6 +58,8 @@ export function VideoForm({ initialData, action }: VideoFormProps) {
         try {
             await action(formData)
             toast.success("Vidéo enregistrée")
+            router.push('/admin/galeries/videos')
+            router.refresh()
         } catch (error) {
             console.error(error)
             toast.error("Erreur d'enregistrement")

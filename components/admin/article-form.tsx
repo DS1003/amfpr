@@ -103,6 +103,8 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
         try {
             await action(formData)
             toast.success("Article enregistré")
+            router.push('/admin/activites')
+            router.refresh()
         } catch (error) {
             console.error(error)
             toast.error("Erreur lors de l'enregistrement")

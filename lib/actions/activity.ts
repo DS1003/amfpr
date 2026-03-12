@@ -31,8 +31,9 @@ export async function createActivity(formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/activites')
+    revalidatePath('/')
     revalidatePath('/activites')
+    revalidatePath('/admin/activites')
     redirect('/admin/activites')
 }
 
@@ -63,14 +64,22 @@ export async function updateActivity(id: string, formData: FormData) {
         },
     })
 
-    revalidatePath('/admin/activites')
+    revalidatePath('/')
     revalidatePath('/activites')
-    redirect('/admin/activites')
+    revalidatePath(`/activites/${slug}`)
+    revalidatePath('/admin/activites')
+    
+    // Check if the form component expects a redirect or a result
+    return { success: true }
 }
 
 export async function deleteActivity(id: string) {
+    const activity = await prisma.activity.findUnique({ where: { id } })
     await prisma.activity.delete({
         where: { id },
     })
+    revalidatePath('/')
+    revalidatePath('/activites')
+    if (activity) revalidatePath(`/activites/${activity.slug}`)
     revalidatePath('/admin/activites')
 }
