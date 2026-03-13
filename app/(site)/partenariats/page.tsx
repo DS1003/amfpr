@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Building2, Globe2, Handshake } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Partenariats",
+  title: "Partenariats | AMFPR",
   description:
     "Découvrez nos partenaires institutionnels et privés qui soutiennent nos actions pour le bien-être social.",
 }
@@ -182,7 +182,7 @@ export default function PartnershipsPage() {
           <div className="relative aspect-[21/9] overflow-hidden rounded-2xl">
             <Image
               src="/images/partnership.jpg"
-              alt="Partenariats de l'AFPR"
+              alt="Partenariats de l'AMFPR"
               fill
               className="object-cover"
               sizes="100vw"

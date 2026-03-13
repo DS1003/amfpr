@@ -19,8 +19,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: 'AFPR - Amicale des Femmes de la Présidence de la République',
-    template: '%s | AFPR',
+    default: 'AMFPR - Amicale des Femmes de la Présidence de la République',
+    template: '%s | AMFPR',
   },
   description:
     "Site officiel de l'Amicale des Femmes de la Présidence de la République. Engagées pour le bien-être social, l'éducation et l'autonomisation des femmes.",

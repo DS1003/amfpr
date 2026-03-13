@@ -37,10 +37,10 @@ export function AdminSidebar({ unreadCount }: AdminSidebarProps) {
             <div className="p-8 border-b border-border/60">
                 <Link href="/admin" className="flex items-center gap-4 group">
                     <div className="size-11 rounded-2xl bg-secondary border border-border/50 flex items-center justify-center text-primary font-serif font-bold transition-all group-hover:scale-110 shadow-sm">
-                        AF
+                        AMF
                     </div>
                     <div>
-                        <h2 className="font-serif font-bold text-xl leading-tight tracking-tight">AFPR</h2>
+                        <h2 className="font-serif font-bold text-xl leading-tight tracking-tight">AMFPR</h2>
                         <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Administration</p>
                     </div>
                 </Link>

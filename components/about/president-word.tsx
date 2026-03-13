@@ -17,7 +17,7 @@ export function PresidentWord() {
                             <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-[6px] md:border-8 border-white group">
                                 <Image
                                     src="/images/president.jpg"
-                                    alt="Présidente de l'AFPR"
+                                    alt="Présidente de l'AMFPR"
                                     fill
                                     className="object-cover object-top transition-transform duration-700 ease-in-out group-hover:scale-105"
                                     sizes="(max-width: 1024px) 100vw, 40vw"

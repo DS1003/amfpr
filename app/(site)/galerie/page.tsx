@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Camera, Play, ArrowRight, Image as ImageIcon } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "Galerie | AFPR",
+    title: "Galerie | AMFPR",
     description: "Découvrez notre galerie média, nos évènements en images et en vidéos.",
 }
 

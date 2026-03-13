@@ -9,7 +9,7 @@ import prisma from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-    title: "Agenda & Événements | AFPR",
+    title: "Agenda & Événements | AMFPR",
     description: "Découvrez l'agenda des activités et événements de l'Amicale des Femmes de la Présidence de la République.",
 }
 

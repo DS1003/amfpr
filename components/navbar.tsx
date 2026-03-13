@@ -96,9 +96,9 @@ export function Navbar() {
       >
         <div className="h-10 mx-auto max-w-screen-2xl px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="mailto:contact@afpr.sn" className="flex items-center gap-2 hover:text-accent transition-colors">
+            <a href="mailto:contact@amfpr.sn" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Mail className="size-3.5 text-accent" />
-              contact@afpr.sn
+              contact@amfpr.sn
             </a>
             <span className="flex items-center gap-2">
               <Phone className="size-3.5 text-accent" />

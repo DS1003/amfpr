@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 import { GalleryClient } from "@/components/gallery/gallery-client"
 
 export const metadata: Metadata = {
-    title: "Nos Photos | AFPR",
+    title: "Nos Photos | AMFPR",
     description: "Découvrez notre galerie photos, nos évènements en images.",
 }
 

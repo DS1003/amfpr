@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 import { VideoGalleryClient } from "@/components/gallery/video-gallery-client"
 
 export const metadata: Metadata = {
-    title: "Nos Vidéos | AFPR",
+    title: "Nos Vidéos | AMFPR",
     description: "Découvrez nos vidéos YouTube, nos évènements en direct.",
 }
 

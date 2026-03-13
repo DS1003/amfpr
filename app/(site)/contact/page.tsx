@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { PageHeader } from "@/components/page-header"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,7 +32,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Adresse Email",
-    details: ["contact@afpr.sn"],
+    details: ["contact@amfpr.sn"],
   },
   {
     icon: Clock,
@@ -41,7 +41,7 @@ const contactInfo = [
   },
 ]
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -52,7 +52,7 @@ const containerVariants = {
   }
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

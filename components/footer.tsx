@@ -118,7 +118,7 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="size-4 text-accent shrink-0" />
                 <span className="text-sm text-primary-foreground/60">
-                  contact@afpr.sn
+                  contact@amfpr.sn
                 </span>
               </li>
             </ul>
