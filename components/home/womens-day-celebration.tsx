@@ -190,7 +190,7 @@ export function WomensDayCelebration() {
                                         ✨ COMMÉMORATION de la Journée de la femme ✨
                                     </p>
                                     <p className="text-white/90 text-[10px] sm:text-xs md:text-sm mt-0.5 font-medium leading-tight">
-                                        Samedi 14 Mars 2026 à 11h00 — Hôtel Terrou-Bi
+                                        Samedi 14 Mars 2026 à 17h00 — Hôtel Terrou-Bi
                                     </p>
                                 </div>
 
