@@ -28,7 +28,7 @@ export async function createEvent(formData: FormData) {
     revalidatePath('/')
     revalidatePath('/agenda')
     revalidatePath('/admin/agenda')
-    redirect('/admin/agenda')
+    return { success: true }
 }
 
 export async function updateEvent(id: string, formData: FormData) {

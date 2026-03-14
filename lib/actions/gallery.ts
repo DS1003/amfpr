@@ -31,7 +31,7 @@ export async function createGallery(formData: FormData) {
     revalidatePath('/galerie')
     revalidatePath('/galerie/photos')
     revalidatePath('/admin/galeries')
-    redirect('/admin/galeries')
+    return { success: true }
 }
 
 export async function updateGallery(id: string, formData: FormData) {

@@ -28,7 +28,7 @@ export async function createVideo(formData: FormData) {
     revalidatePath('/galerie')
     revalidatePath('/galerie/videos')
     revalidatePath('/admin/galeries')
-    redirect('/admin/galeries/videos')
+    return { success: true }
 }
 
 export async function updateVideo(id: string, formData: FormData) {

@@ -27,6 +27,7 @@ export async function createPublication(formData: FormData) {
     revalidatePath('/')
     revalidatePath('/publications')
     revalidatePath('/admin/publications')
+    return { success: true }
 }
 
 export async function updatePublication(id: string, formData: FormData) {
@@ -54,6 +55,7 @@ export async function updatePublication(id: string, formData: FormData) {
     revalidatePath('/')
     revalidatePath('/publications')
     revalidatePath('/admin/publications')
+    return { success: true }
 }
 
 export async function deletePublication(id: string) {
