@@ -78,4 +78,5 @@ export async function deleteGallery(id: string) {
     revalidatePath('/galerie')
     revalidatePath('/galerie/photos')
     revalidatePath('/admin/galeries')
+    return { success: true }
 }

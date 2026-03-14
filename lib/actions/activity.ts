@@ -15,27 +15,36 @@ export async function createActivity(formData: FormData) {
     const content = formData.get('content') as string
     const published = formData.get('published') === 'true'
 
-    const slug = slugify(title, { lower: true, strict: true })
+    const slug = slugify(title, { lower: true, strict: true }) || Date.now().toString()
 
-    await prisma.activity.create({
-        data: {
-            title,
-            description,
-            category,
-            date: new Date(dateStr),
-            image,
-            videoUrl,
-            content,
-            published,
-            slug,
-        },
-    })
+    try {
+        const parsedDate = dateStr ? new Date(dateStr) : new Date()
+        
+        await prisma.activity.create({
+            data: {
+                title,
+                description,
+                category,
+                date: isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
+                image: image || null,
+                videoUrl: videoUrl || null,
+                content: content || null,
+                published,
+                slug,
+            },
+        })
 
-    revalidatePath('/')
-    revalidatePath('/articles')
-    revalidatePath('/actualites')
-    revalidatePath('/admin/activites')
-    redirect('/admin/activites')
+        revalidatePath('/')
+        revalidatePath('/articles')
+        revalidatePath('/admin/activites')
+        return { success: true }
+    } catch (error: any) {
+        console.error("[CREATE_ACTIVITY_ERROR]", error)
+        if (error.code === 'P2002') {
+            return { error: "Un article avec ce titre existe déjà (conflit de lien)." }
+        }
+        return { error: `Erreur: ${error.message || "Une erreur est survenue"}` }
+    }
 }
 
 export async function updateActivity(id: string, formData: FormData) {
@@ -48,31 +57,39 @@ export async function updateActivity(id: string, formData: FormData) {
     const content = formData.get('content') as string
     const published = formData.get('published') === 'true'
 
-    const slug = slugify(title, { lower: true, strict: true })
+    const slug = slugify(title, { lower: true, strict: true }) || id
 
-    await prisma.activity.update({
-        where: { id },
-        data: {
-            title,
-            description,
-            category,
-            date: new Date(dateStr),
-            image,
-            videoUrl,
-            content,
-            published,
-            slug,
-        },
-    })
+    try {
+        const parsedDate = dateStr ? new Date(dateStr) : new Date()
 
-    revalidatePath('/')
-    revalidatePath('/articles')
-    revalidatePath(`/articles/${slug}`)
-    revalidatePath('/actualites')
-    revalidatePath('/admin/activites')
-    
-    // Check if the form component expects a redirect or a result
-    return { success: true }
+        await prisma.activity.update({
+            where: { id },
+            data: {
+                title,
+                description,
+                category,
+                date: isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
+                image: image || null,
+                videoUrl: videoUrl || null,
+                content: content || null,
+                published,
+                slug,
+            },
+        })
+
+        revalidatePath('/')
+        revalidatePath('/articles')
+        revalidatePath(`/articles/${slug}`)
+        revalidatePath('/admin/activites')
+        
+        return { success: true }
+    } catch (error: any) {
+        console.error("[UPDATE_ACTIVITY_ERROR]", error)
+        if (error.code === 'P2002') {
+            return { error: "Un article avec ce titre existe déjà (conflit de lien)." }
+        }
+        return { error: `Erreur: ${error.message || "Une erreur est survenue"}` }
+    }
 }
 
 export async function deleteActivity(id: string) {
@@ -85,4 +102,5 @@ export async function deleteActivity(id: string) {
     if (activity) revalidatePath(`/articles/${activity.slug}`)
     revalidatePath('/actualites')
     revalidatePath('/admin/activites')
+    return { success: true }
 }

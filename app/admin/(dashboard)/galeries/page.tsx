@@ -3,6 +3,7 @@ import { Plus, Image as ImageIcon, Video, Calendar, MoreVertical, Edit, Trash2 }
 import prisma from "@/lib/prisma"
 import { deleteGallery } from "@/lib/actions/gallery"
 import { Badge } from "@/components/ui/badge"
+import { DeleteButton } from "@/components/admin/delete-button"
 
 export default async function AdminGaleriesPage() {
     const galeries = await prisma.gallery.findMany({
@@ -86,17 +87,12 @@ export default async function AdminGaleriesPage() {
                                 >
                                     <Edit className="size-4" />
                                 </Link>
-                                <form action={async () => {
-                                    'use server'
-                                    await deleteGallery(gallery.id)
-                                }}>
-                                    <button
-                                        type="submit"
-                                        className="p-2 text-primary/60 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
-                                    >
-                                        <Trash2 className="size-4" />
-                                    </button>
-                                </form>
+                                <DeleteButton 
+                                    id={gallery.id}
+                                    action={deleteGallery}
+                                    title="Supprimer la galerie ?"
+                                    description={`Voulez-vous vraiment supprimer "${gallery.title}" ?`}
+                                />
                             </div>
                         </div>
                     </div>

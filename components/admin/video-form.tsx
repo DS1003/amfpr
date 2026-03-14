@@ -19,6 +19,7 @@ interface VideoFormProps {
         youtubeUrl: string
         thumbnail?: string | null
         published: boolean
+        date?: Date | string | null
     }
     action: (formData: FormData) => Promise<void>
 }
@@ -124,6 +125,18 @@ export function VideoForm({ initialData, action }: VideoFormProps) {
                                 {!videoId && youtubeUrl.length > 5 && (
                                     <p className="text-xs text-red-500 mt-1">URL YouTube invalide. Exemple : https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>
                                 )}
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="date" className="text-sm font-bold text-primary">Date de la vidéo</Label>
+                                <Input
+                                    id="date"
+                                    name="date"
+                                    type="date"
+                                    defaultValue={initialData?.date ? new Date(initialData.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
+                                    required
+                                    className="rounded-xl border-border h-12"
+                                />
                             </div>
 
                             {/* YouTube Preview */}

@@ -2,6 +2,8 @@ import { Plus, Search, Filter, FileText, Download, Trash, Edit } from "lucide-re
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
+import { deletePublication } from "@/lib/actions/publication"
+import { DeleteButton } from "@/components/admin/delete-button"
 
 export default async function AdminPublications() {
     const publications = await prisma.publication.findMany({
@@ -53,9 +55,12 @@ export default async function AdminPublications() {
                                 <Button variant="ghost" size="icon" className="size-8 rounded-lg hover:bg-secondary">
                                     <Edit className="size-4" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="size-8 rounded-lg hover:bg-red-50 hover:text-red-600">
-                                    <Trash className="size-4" />
-                                </Button>
+                                <DeleteButton 
+                                    id={doc.id}
+                                    action={deletePublication}
+                                    title="Supprimer la publication ?"
+                                    description={`Voulez-vous vraiment supprimer "${doc.title}" ?`}
+                                />
                             </div>
                         </div>
 

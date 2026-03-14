@@ -3,6 +3,7 @@ import { Plus, Play, Calendar, Edit, Trash2, ExternalLink } from "lucide-react"
 import prisma from "@/lib/prisma"
 import { deleteVideo } from "@/lib/actions/video"
 import { Badge } from "@/components/ui/badge"
+import { DeleteButton } from "@/components/admin/delete-button"
 
 function extractYoutubeId(url: string): string | null {
     const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
@@ -114,17 +115,12 @@ export default async function AdminVideosPage() {
                                         >
                                             <Edit className="size-4" />
                                         </Link>
-                                        <form action={async () => {
-                                            'use server'
-                                            await deleteVideo(video.id)
-                                        }}>
-                                            <button
-                                                type="submit"
-                                                className="p-2 text-primary/60 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
-                                            >
-                                                <Trash2 className="size-4" />
-                                            </button>
-                                        </form>
+                                        <DeleteButton 
+                                            id={video.id}
+                                            action={deleteVideo}
+                                            title="Supprimer la vidéo ?"
+                                            description={`Voulez-vous vraiment supprimer "${video.title}" ?`}
+                                        />
                                     </div>
                                 </div>
                             </div>

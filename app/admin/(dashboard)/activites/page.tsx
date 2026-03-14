@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
 import { deleteActivity } from "@/lib/actions/activity"
+import { DeleteButton } from "@/components/admin/delete-button"
 
 export default async function AdminActivites() {
     const activities = await prisma.activity.findMany({
@@ -48,54 +49,70 @@ export default async function AdminActivites() {
             </div>
 
             {/* Activities Table */}
-            <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+            <div className="bg-white rounded-[2rem] border border-border overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse table-fixed min-w-[600px] md:min-w-full">
                         <thead>
                             <tr className="bg-secondary/20">
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/60 border-b border-border">Titre</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/60 border-b border-border">Catégorie</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/60 border-b border-border">Date</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/60 border-b border-border">Statut</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/60 border-b border-border text-right">Actions</th>
+                                <th className="w-[50%] md:w-[40%] px-6 py-4 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Article</th>
+                                <th className="hidden lg:table-cell w-[20%] px-6 py-4 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Catégorie</th>
+                                <th className="hidden md:table-cell w-[15%] px-6 py-4 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Date</th>
+                                <th className="hidden sm:table-cell w-[15%] px-6 py-4 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border text-center">Statut</th>
+                                <th className="w-[15%] md:w-[10%] px-6 py-4 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border">
+                        <tbody className="divide-y divide-border/60">
                             {activities.length > 0 ? activities.map((activity) => (
-                                <tr key={activity.id} className="hover:bg-secondary/10 transition-colors group">
-                                    <td className="px-6 py-4">
-                                        <div className="font-semibold text-primary">{activity.title}</div>
-                                        <div className="text-xs text-muted-foreground truncate max-w-[200px]">{activity.description}</div>
+                                <tr key={activity.id} className="hover:bg-secondary/5 transition-colors group">
+                                    <td className="px-6 py-5">
+                                        <div className="font-bold text-primary text-sm line-clamp-2 group-hover:text-accent transition-colors">{activity.title}</div>
+                                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-2">
+                                            <div className="hidden lg:block text-[10px] text-muted-foreground font-medium truncate max-w-full">{activity.description}</div>
+                                            <div className="lg:hidden">
+                                                <span className="text-[9px] font-black text-accent bg-accent/5 px-2 py-0.5 rounded uppercase tracking-widest border border-accent/10">
+                                                    {activity.category}
+                                                </span>
+                                            </div>
+                                            <div className="md:hidden text-[9px] text-muted-foreground/60 font-black uppercase tracking-widest">
+                                                {new Date(activity.date).toLocaleDateString('fr-FR')}
+                                            </div>
+                                            <div className="sm:hidden">
+                                                 <span className={`inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest ${activity.published ? 'text-green-600' : 'text-gray-400'}`}>
+                                                    <span className={`size-1.5 rounded-full ${activity.published ? 'bg-green-600 shadow-[0_0_8px_rgba(22,163,74,0.4)]' : 'bg-gray-400'}`} />
+                                                    {activity.published ? 'Publié' : 'Brouillon'}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-3 py-1 bg-secondary text-primary text-[11px] font-bold rounded-full uppercase tracking-tight">
+                                    <td className="hidden lg:table-cell px-6 py-5">
+                                        <span className="px-3 py-1 bg-secondary text-primary text-[10px] font-black rounded-full uppercase tracking-widest border border-border/50">
                                             {activity.category}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-muted-foreground">
-                                        {new Date(activity.date).toLocaleDateString('fr-FR')}
+                                    <td className="hidden md:table-cell px-6 py-5">
+                                        <div className="text-[11px] font-bold text-primary/70">
+                                            {new Date(activity.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        </div>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${activity.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                                            <span className={`size-1.5 rounded-full ${activity.published ? 'bg-green-600' : 'bg-gray-400'}`} />
+                                    <td className="hidden sm:table-cell px-6 py-5 text-center">
+                                        <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${activity.published ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-gray-50 text-gray-400 border border-gray-100'}`}>
+                                            <span className={`size-1.5 rounded-full ${activity.published ? 'bg-green-600 shadow-[0_0_8px_rgba(22,163,74,0.4)]' : 'bg-gray-400'}`} />
                                             {activity.published ? 'Publié' : 'Brouillon'}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <Button asChild variant="ghost" size="icon" className="rounded-lg hover:bg-secondary hover:text-primary size-8">
+                                    <td className="px-6 py-5 text-right">
+                                        <div className="flex items-center justify-end gap-1.5 md:opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            <Button asChild variant="ghost" size="icon" className="rounded-xl hover:bg-white hover:text-accent hover:shadow-lg hover:shadow-primary/5 size-9 border border-transparent hover:border-border/40">
                                                 <Link href={`/admin/activites/${activity.id}/modifier`}>
                                                     <Edit className="size-4" />
                                                 </Link>
                                             </Button>
-                                            <form action={async () => {
-                                                'use server'
-                                                await deleteActivity(activity.id)
-                                            }}>
-                                                <Button variant="ghost" size="icon" className="rounded-lg hover:bg-red-50 hover:text-red-600 size-8 text-red-500">
-                                                    <Trash className="size-4" />
-                                                </Button>
-                                            </form>
+                                            <DeleteButton 
+                                                id={activity.id} 
+                                                action={deleteActivity}
+                                                title="Supprimer l'article ?"
+                                                description={`Êtes-vous sûr de vouloir supprimer "${activity.title}" ? Cette action est irréversible.`}
+                                            />
                                         </div>
                                     </td>
                                 </tr>

@@ -66,49 +66,61 @@ export default async function AdminAgenda({ searchParams }: AdminAgendaProps) {
             {/* Events Table */}
             <div className="bg-white rounded-[2.5rem] border border-border overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse table-fixed min-w-[700px] md:min-w-full">
                         <thead>
                             <tr className="bg-secondary/20">
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Événement</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Date & Lieu</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Catégorie</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Statut</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border text-right">Actions</th>
+                                <th className="w-[40%] px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Événement</th>
+                                <th className="w-[25%] px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Date & Lieu</th>
+                                <th className="hidden lg:table-cell w-[15%] px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border">Catégorie</th>
+                                <th className="hidden sm:table-cell w-[12%] px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border text-center">Statut</th>
+                                <th className="w-[8%] px-6 py-5 text-[10px] font-black uppercase tracking-widest text-primary/40 border-b border-border text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/60">
                             {events.length > 0 ? events.map((event) => (
-                                <tr key={event.id} className="hover:bg-secondary/10 transition-colors group">
+                                <tr key={event.id} className="hover:bg-secondary/5 transition-colors group">
                                     <td className="px-6 py-6">
-                                        <div className="font-bold text-primary group-hover:text-accent transition-colors">{event.title}</div>
-                                        <div className="text-xs text-muted-foreground truncate max-w-[280px] mt-1">{event.description}</div>
+                                        <div className="font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 text-sm md:text-base">{event.title}</div>
+                                        <div className="text-[10px] text-muted-foreground truncate max-w-[200px] mt-1.5">{event.description}</div>
+                                        <div className="flex items-center gap-2 mt-3 lg:hidden">
+                                            <span className="px-2 py-0.5 bg-secondary text-primary text-[8px] font-black rounded uppercase tracking-widest border border-border/50">
+                                                {event.category}
+                                            </span>
+                                            <div className="sm:hidden">
+                                                <span className={`inline-flex items-center gap-1.5 text-[8px] font-black uppercase tracking-widest ${event.published ? 'text-emerald-600' : 'text-gray-400'}`}>
+                                                    <span className={`size-1.5 rounded-full ${event.published ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-gray-400'}`} />
+                                                    {event.published ? 'En Ligne' : 'Brouillon'}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td className="px-6 py-6">
-                                        <div className="flex flex-col gap-1.5 text-xs">
-                                            <span className="flex items-center gap-2 text-primary font-bold">
+                                        <div className="flex flex-col gap-2 text-xs">
+                                            <span className="flex items-center gap-2 text-primary font-bold whitespace-nowrap">
                                                 <Calendar className="size-3.5 text-accent" />
-                                                {new Date(event.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                                <span className="hidden md:inline">{new Date(event.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                                                <span className="md:hidden">{new Date(event.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
                                             </span>
-                                            <span className="flex items-center gap-2 text-muted-foreground font-medium">
+                                            <span className="flex items-center gap-2 text-muted-foreground font-medium truncate">
                                                 <MapPin className="size-3.5 text-accent/60" />
                                                 {event.location || 'Dakar'}
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-6">
-                                        <span className="px-4 py-1.5 bg-secondary text-primary text-[9px] font-black rounded-full uppercase tracking-widest border border-border/50">
+                                    <td className="hidden lg:table-cell px-6 py-6">
+                                        <span className="px-4 py-1.5 bg-secondary text-primary text-[9px] font-black rounded-full uppercase tracking-widest border border-border/50 whitespace-nowrap">
                                             {event.category}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-6">
-                                        <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${event.published ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-gray-50 text-gray-500 border border-gray-100'}`}>
+                                    <td className="hidden sm:table-cell px-6 py-6 text-center">
+                                        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest ${event.published ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-gray-50 text-gray-500 border border-gray-100'}`}>
                                             <span className={`size-1.5 rounded-full ${event.published ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-gray-400'}`} />
                                             {event.published ? 'En Ligne' : 'Brouillon'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-6 text-right">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <Button asChild variant="ghost" size="icon" className="rounded-xl hover:bg-secondary hover:text-primary size-9 shadow-sm hover:shadow-md transition-all">
+                                        <div className="flex items-center justify-end gap-1.5 md:opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            <Button asChild variant="ghost" size="icon" className="rounded-xl hover:bg-white hover:text-accent hover:shadow-lg hover:shadow-primary/5 size-9 border border-transparent hover:border-border/40">
                                                 <Link href={`/admin/agenda/${event.id}/modifier`}>
                                                     <Edit className="size-4.5" />
                                                 </Link>

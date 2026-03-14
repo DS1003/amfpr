@@ -7,8 +7,8 @@ async function main() {
         where: { email: "admin@afpr.org" },
         update: {},
         create: {
-            email: "admin@afpr.org",
-            name: "Administrateur AFPR",
+            email: "admin@amfpr.com",
+            name: "Administrateur AMFPR",
             role: "ADMIN",
         },
     })

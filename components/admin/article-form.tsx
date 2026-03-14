@@ -15,7 +15,14 @@ import { uploadImage } from "@/lib/actions/upload"
 import { toast } from "sonner"
 
 // Import React Quill dynamically to avoid SSR issues
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
+const ReactQuill = dynamic(
+    async () => {
+        const { default: RQ } = await import('react-quill-new')
+        // eslint-disable-next-line react/display-name
+        return ({ forwardedRef, ...props }: any) => <RQ ref={forwardedRef} {...props} />
+    },
+    { ssr: false }
+)
 
 interface ArticleFormProps {
     initialData?: {
@@ -101,13 +108,19 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
         formData.append('published', published.toString())
 
         try {
-            await action(formData)
+            const result: any = await action(formData)
+            
+            if (result?.error) {
+                toast.error(result.error)
+                return
+            }
+
             toast.success("Article enregistré")
             router.push('/admin/activites')
             router.refresh()
         } catch (error) {
             console.error(error)
-            toast.error("Erreur lors de l'enregistrement")
+            toast.error("Une erreur imprévue est survenue")
         } finally {
             setIsLoading(false)
         }
@@ -187,7 +200,7 @@ export function ArticleForm({ initialData, action }: ArticleFormProps) {
                                 <div className="prose-editor">
                                     {/* @ts-ignore */}
                                     <ReactQuill
-                                        ref={quillRef}
+                                        forwardedRef={quillRef}
                                         theme="snow"
                                         value={content}
                                         onChange={setContent}

@@ -9,8 +9,9 @@ interface Video {
     title: string
     description: string | null
     youtubeUrl: string
-    thumbnail: string | null
+    thumbnail?: string | null
     createdAt: string
+    date: string
 }
 
 function extractYoutubeId(url: string): string | null {
@@ -107,7 +108,7 @@ export function VideoGalleryClient({ videos }: { videos: Video[] }) {
                                 )}
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground/60 font-medium pt-1">
                                     <Calendar className="size-3.5" />
-                                    {new Date(video.createdAt).toLocaleDateString('fr-FR', {
+                                    {new Date(video.date || video.createdAt).toLocaleDateString('fr-FR', {
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric'

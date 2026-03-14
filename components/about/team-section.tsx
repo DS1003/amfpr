@@ -36,10 +36,10 @@ export function TeamSection() {
       <MotionWrapper>
         <div className="text-center mb-16">
           <span className="inline-block mb-4 text-xs font-medium tracking-widest uppercase text-accent">
-            Bureau exécutif
+            Le Bureau
           </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-primary md:text-4xl text-balance">
-            {"Les présidentes de commission"}
+            {"Les membres du Bureau"}
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-base text-muted-foreground leading-relaxed">
             {

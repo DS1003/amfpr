@@ -10,6 +10,8 @@ export async function createVideo(formData: FormData) {
     const youtubeUrl = formData.get('youtubeUrl') as string
     const thumbnail = formData.get('thumbnail') as string
     const published = formData.get('published') === 'true'
+    const dateStr = formData.get('date') as string
+    const date = dateStr ? new Date(dateStr) : new Date()
 
     await prisma.video.create({
         data: {
@@ -18,6 +20,7 @@ export async function createVideo(formData: FormData) {
             youtubeUrl,
             thumbnail,
             published,
+            date,
         },
     })
 
@@ -34,6 +37,8 @@ export async function updateVideo(id: string, formData: FormData) {
     const youtubeUrl = formData.get('youtubeUrl') as string
     const thumbnail = formData.get('thumbnail') as string
     const published = formData.get('published') === 'true'
+    const dateStr = formData.get('date') as string
+    const date = dateStr ? new Date(dateStr) : undefined
 
     await prisma.video.update({
         where: { id },
@@ -43,6 +48,7 @@ export async function updateVideo(id: string, formData: FormData) {
             youtubeUrl,
             thumbnail,
             published,
+            date,
         },
     })
 
@@ -62,4 +68,5 @@ export async function deleteVideo(id: string) {
     revalidatePath('/galerie')
     revalidatePath('/galerie/videos')
     revalidatePath('/admin/galeries')
+    return { success: true }
 }

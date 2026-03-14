@@ -11,12 +11,13 @@ export const metadata: Metadata = {
 export default async function VideosPage() {
     const videos = await prisma.video.findMany({
         where: { published: true },
-        orderBy: { createdAt: 'desc' }
+        orderBy: { date: 'desc' }
     })
 
     // Serialize dates for client component
     const serializedVideos = videos.map(v => ({
         ...v,
+        date: v.date.toISOString(),
         createdAt: v.createdAt.toISOString(),
         updatedAt: v.updatedAt.toISOString(),
     }))
