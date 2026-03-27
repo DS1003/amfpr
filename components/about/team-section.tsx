@@ -19,9 +19,10 @@ const teamMembers = [
     image: "/images/bintou_malick_gueye.jpg",
   },
   {
-    name: "Mame Awa DIOP",
+    name: "Awa DIOP",
     role: "Trésorière Générale",
-    image: "/images/mame_awa_diop.jpg",
+    image: "/images/awa_diop.jpg",
+    position: "object-top",
   },
   // {
   //   name: "Fatma Guèye THIAM",
@@ -58,7 +59,7 @@ export function TeamSection() {
                   src={member.image}
                   alt={member.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className={`object-cover transition-transform duration-500 group-hover:scale-105 ${member.position || "object-center"}`}
                   sizes="224px"
                 />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
