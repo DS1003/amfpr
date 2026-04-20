@@ -12,7 +12,7 @@ export default function HomePage() {
     <>
       <WomensDayCelebration />
       <HeroSection />
-      <EventBanner />
+      {/* <EventBanner /> */}
       <PresentationSection />
       <ArticlesSection />
       <GalleryPreview />
